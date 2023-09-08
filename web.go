@@ -27,7 +27,7 @@ func (m *MyMiddleware) Middleware(next http.Handler) http.Handler {
 				},
 				// Add other form field data
 			}
-			tmpl, err := template.New("form").ParseFiles("frontend/src/components/form.tmpl")
+			tmpl, err := template.New("form").ParseFiles("frontend/src/components/forms.html", "frontend/src/components/inputs.html")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -57,7 +57,7 @@ func (m *MyMiddleware) Middleware(next http.Handler) http.Handler {
 				},
 				// Add other form field data
 			}
-			tmpl, err := template.New("form").ParseFiles("frontend/src/components/form.tmpl")
+			tmpl, err := template.New("form").ParseFiles("frontend/src/components/forms.html", "frontend/src/components/inputs.html")
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return

@@ -1,0 +1,25 @@
+{{define "form1"}}
+<form id="target-form">
+   <h1 className="text-3xl font-bold underline">
+      I'm a go template on the server as form1!
+    </h1>
+    <!-- Your form content here -->
+
+    <!-- Include multiple dynamic buttons -->
+    {{ template "button" .Button1 }}
+    {{ template "button" .Button2 }}
+</form>
+{{end}}
+
+{{define "form2"}}
+<form id="target-form">
+   <h1 className="text-3xl font-bold underline">
+       I'm a go template on the server as form2!
+    </h1>
+    <!-- Your form content here -->
+
+    <!-- Include multiple dynamic buttons -->
+    {{ template "button" .Button1 }}
+    {{ template "button" .Button2 }}
+</form>
+{{end}}

@@ -12,10 +12,6 @@ import (
 var assets embed.FS
 
 func main() {
-	// Create an instance of the app structure
-	// mux := http.NewServeMux()
-
-	// mux.HandleFunc("/route", myHandler)
 	// Create an instance of your custom middleware
 	myMiddleware := &MyMiddleware{}
 	app := NewApp()
