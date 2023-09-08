@@ -1,15 +1,15 @@
 import './style.css';
 import './app.css';
 
-import logo from './assets/images/logo-universal.png';
+// import logo from './assets/images/logo-universal.png';
 import {Greet} from '../wailsjs/go/main/App';
 
 
-document.getElementById('logo').src = logo;
+// document.getElementById('logo').src = logo;
 
-let nameElement = document.getElementById("name");
-nameElement.focus();
-let resultElement = document.getElementById("result");
+// let nameElement = document.getElementById("name");
+// nameElement.focus();
+// let resultElement = document.getElementById("result");
 
 // Setup the greet function
 window.greet = function () {

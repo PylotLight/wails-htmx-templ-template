@@ -1,19 +1,33 @@
 {{define "button" }}
-<button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" hx-get="{{ .HxURL }}" hx-trigger="click" hx-swap="outerHTML transition:false">{{ .Label }}</button>
+<button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" hx-{{.HxMethod}}="{{ .HxURL }}" hx-trigger="click" hx-target="#target-form" hx-swap="outerHTML transition:false">{{ .Label }}</button>
 {{ end }}
 
-{{define "submitbutton" }}
-<button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" type="submit" hx-post="{{ .HxURL }}" hx-trigger="click" hx-swap="outerHTML transition:false">{{ .Label }}</button>
+{{define "SubmitButton" }}
+<button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md {{ .Classes }}" type="submit" hx-post="{{ .HxURL }}" hx-trigger="click" hx-swap="outerHTML transition:false">{{ .Label }}</button>
 {{ end }}
 
 {{define "textinput" }}
-<input type="text" name={{ .Name }} placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+<div class="indicator">
+  <span class="indicator-item indicator-center badge badge-primary">{{ .Placeholder }}</span> 
+  <input type="text" name="{{ .Name }}" placeholder="{{ .Placeholder }}" class="input join-item input-bordered w-full max-w-xs {{ .Classes }}" />
+</div>
 {{ end }}
 
+{{ define "textinput2"}}
+<div class="form-control w-full max-w-xs">
+  <label class="label">
+    <span class="label-text badge badge-primary">{{ .Placeholder }}</span>
+  </label>
+  <input type="text" name="{{ .Name }}" placeholder="{{ .Placeholder }}" class="input join-item input-bordered w-full max-w-xs {{ .Classes }}" />
+</div>
+{{end}}
+
 {{ define "selectinput" }}
-<select class="select select-bordered w-full max-w-xs">
+<select class="select select-bordered w-full max-w-xs my-8 {{ .Classes }}">
   <option disabled selected>{{ .Default }}</option>
-  {{ .Options }}
+  {{ range .Elements }}
+  <option>{{ . }}</option>
+  {{end}}
 </select>
 {{ end }}
 
@@ -21,7 +35,11 @@
 <div class="form-control">
   <label class="label cursor-pointer">
     <span class="label-text">Remember me</span> 
-    <input type="checkbox" checked="checked" class="checkbox" />
+    <input type="checkbox" checked="checked" class="checkbox join-item" />
   </label>
 </div>
 {{ end }}
+
+{{ define "textarea"}}
+<textarea placeholder="Bio" class="textarea textarea-bordered textarea-md w-full max-w-xs" ></textarea>
+{{end}}
