@@ -8,18 +8,29 @@
 </head>
 <body>
 <div id="app">
-    <img id="logo" class="logo" src="src/assets/images/logo-universal.png">
-      <div class="result" id="result">Please enter your name below 👇</div>
-      <div class="input-box" id="input">
-        <input class="input input-bordered w-full max-w-xs" id="name" type="text" autocomplete="off" />
-        <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" onclick="greet()">Greet</button>
-      </div>
-
-      <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" hx-get="form1" hx-trigger="click" hx-target="#target-form" hx-swap="outerHTML transition:false">Get Form1</button>
-      <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" hx-get="form2" hx-trigger="click" hx-target="#target-form" hx-swap="outerHTML transition:false">Get Form2</button>
+<div class="drawer lg:drawer-open">
+  <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col items-center justify-center">
       <form id="target-form">
-<div id="result"></div>
-    </div>
+    <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+  
+  </div> 
+  <div class="drawer-side">
+    <label for="my-drawer-2" class="drawer-overlay"></label> 
+    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+      <!-- Sidebar content here -->
+      <img id="logo" class="logo" src="src/assets/images/logo-universal.png">
+      <li hx-boost hx-get="greet" hx-target="#target-form"><a>Greet Form</a></li>
+      <li hx-boost hx-get="form1" hx-target="#target-form"><a>Form 1</a></li>
+      <li hx-boost hx-get="form2" hx-target="#target-form"><a>Form 2</a></li>
+    </ul>
+  
+  </div>
+</div>
+
+
+   
+</div>
 </div>
 <script src="./src/main.js" type="module"></script>
 </body>

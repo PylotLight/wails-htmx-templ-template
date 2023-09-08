@@ -1,3 +1,13 @@
+{{ define "greetform"}}
+<form id="target-form">
+   <div class="result" id="result">Please enter your name below 👇</div>
+      <div class="input-box" id="input">
+        <input class="input input-bordered w-full max-w-xs" id="name" type="text" autocomplete="off" />
+        <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" onclick="greet()">Greet</button>
+      </div>
+   </form>
+{{end}}
+
 {{define "form1"}}
 <form id="target-form">
    <h1 className="text-3xl font-bold underline">
@@ -30,6 +40,5 @@
 
     <!-- Include multiple dynamic buttons -->
     {{ template "button" .Button1 }}
-    {{ template "button" .Button2 }}
 </form>
 {{end}}

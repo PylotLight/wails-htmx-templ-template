@@ -10,7 +10,6 @@ import (
 
 // Implement the assetserver.Middleware interface
 func (m *MyMiddleware) Middleware(next http.Handler) http.Handler {
-	fmt.Println("midd")
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Your custom middleware logic goes here
 
@@ -20,6 +19,21 @@ func (m *MyMiddleware) Middleware(next http.Handler) http.Handler {
 		}
 		if r.URL.Path == "/form2" {
 			handleForm2(w, r)
+			return
+		}
+		if r.URL.Path == "/greet" {
+			tmpl, err := template.New("form").ParseFiles("frontend/src/components/forms.html", "frontend/src/components/inputs.html")
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			err = tmpl.ExecuteTemplate(w, "greetform", nil)
+			if err != nil {
+				fmt.Println("Error:", err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
 			return
 		}
 		// Call the next handler in the chain
@@ -68,7 +82,6 @@ func handleForm1(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = tmpl.ExecuteTemplate(w, "form1", formData)
-	// err = tmpl.Execute(&buffer, buttonData)
 	if err != nil {
 		fmt.Println("Error:", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -87,12 +100,6 @@ func handleForm2(w http.ResponseWriter, r *http.Request) {
 			HxURL: "/form2",
 			// Add other button properties
 		},
-		// "Button2": ButtonComponent{
-		// 	Label: "Form 2 button",
-		// 	HxURL: "/form2",
-		// 	// Add other button properties
-		// },
-		// Add other form field data
 	}
 	tmpl, err := template.New("form").ParseFiles("frontend/src/components/forms.html", "frontend/src/components/inputs.html")
 	if err != nil {
@@ -101,7 +108,6 @@ func handleForm2(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = tmpl.ExecuteTemplate(w, "form2", formData)
-	// err = tmpl.Execute(&buffer, buttonData)
 	if err != nil {
 		fmt.Println("Error:", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
