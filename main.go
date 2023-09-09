@@ -11,11 +11,13 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
+//go:embed all:components/forms.html components/inputs.html components/*
+var templates embed.FS
+
 func main() {
 	// Create an instance of your custom middleware
 	myMiddleware := &MyMiddleware{}
 	app := NewApp()
-
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "wails-hmtx",

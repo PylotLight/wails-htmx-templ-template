@@ -1,0 +1,44 @@
+{{ define "greetform"}}
+<form id="target-form">
+   <div class="result" id="result">Please enter your name below 👇</div>
+      <div class="input-box" id="input">
+        {{ template "textinput" .NameInput }}
+        {{ template "SubmitButton" .GreetButton }}
+      </div>
+   </form>
+{{end}}
+
+{{define "form1"}}
+<form id="target-form">
+   <h1 className="text-3xl font-bold underline">
+      I'm a go template on the server as form1!
+    </h1>
+   <div class="container mx-auto">
+      <div class="join join-vertical">
+         {{ template "selectinput" .SelectComponent }}
+         <div class="join join-horizontal">
+         {{ template "textinput" .TitleInput }}
+         {{ template "textinput" .ParentInput }}
+         </div>
+              <div class="join join-horizontal">
+         {{ template "textinput2" .Parent2 }}
+         {{ template "textinput2" .Parent3 }}
+         </div>
+         <div class="divider"></div>
+         {{ template "SubmitButton" .Submit }}
+      </div>
+    </div>
+</form>
+{{end}}
+
+{{define "form2"}}
+<form id="target-form">
+   <h1 className="text-3xl font-bold underline">
+       I'm a go template on the server as form2!
+    </h1>
+    <!-- Your form content here -->
+
+    <!-- Include multiple dynamic buttons -->
+    {{ template "button" .Button1 }}
+</form>
+{{end}}

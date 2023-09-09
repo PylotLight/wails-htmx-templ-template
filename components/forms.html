@@ -2,8 +2,8 @@
 <form id="target-form">
    <div class="result" id="result">Please enter your name below 👇</div>
       <div class="input-box" id="input">
-        <input class="input input-bordered w-full max-w-xs" id="name" type="text" autocomplete="off" />
-        <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" onclick="greet()">Greet</button>
+        {{ template "textinput" .NameInput }}
+        {{ template "SubmitButton" .GreetButton }}
       </div>
    </form>
 {{end}}

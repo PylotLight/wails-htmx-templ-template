@@ -2,10 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-
-	// "text/template"
 	"html/template"
+	"net/http"
+	"os"
 )
 
 // Implement the assetserver.Middleware interface
@@ -22,23 +21,47 @@ func (m *MyMiddleware) Middleware(next http.Handler) http.Handler {
 			return
 		}
 		if r.URL.Path == "/greet" {
-			tmpl, err := template.New("form").ParseFiles("frontend/src/components/forms.html", "frontend/src/components/inputs.html")
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
-
-			err = tmpl.ExecuteTemplate(w, "greetform", nil)
-			if err != nil {
-				fmt.Println("Error:", err)
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-				return
-			}
+			handleGreet(w, r)
 			return
 		}
 		// Call the next handler in the chain
 		next.ServeHTTP(w, r)
 	})
+}
+
+func handleGreet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	// files, _ := os.ReadDir("/")
+	files, _ := os.ReadDir(".")
+	loc, _ := os.Getwd()
+	fmt.Println(files, loc)
+	formData := map[string]interface{}{
+		"NameInput": TextComponent{
+			Name:        "Greet",
+			Classes:     "",
+			Placeholder: "Greet",
+		},
+		"GreetButton": ButtonComponent{
+			Label:    "Greet",
+			HxURL:    "/greetsubmit",
+			HxMethod: "get",
+			Classes:  "",
+			// Add other button properties
+		},
+		// Add other form field data
+	}
+	tmpl, err := template.New("form").ParseFiles("components/forms.html", "components/inputs.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.ExecuteTemplate(w, "greetform", formData)
+	if err != nil {
+		fmt.Println("Error:", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 func handleForm1(w http.ResponseWriter, r *http.Request) {
@@ -75,7 +98,7 @@ func handleForm1(w http.ResponseWriter, r *http.Request) {
 		},
 		// Add other form field data
 	}
-	tmpl, err := template.New("form").ParseFiles("frontend/src/components/forms.html", "frontend/src/components/inputs.html")
+	tmpl, err := template.New("form").ParseFiles("./components/forms.html", "./components/inputs.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -101,7 +124,7 @@ func handleForm2(w http.ResponseWriter, r *http.Request) {
 			// Add other button properties
 		},
 	}
-	tmpl, err := template.New("form").ParseFiles("frontend/src/components/forms.html", "frontend/src/components/inputs.html")
+	tmpl, err := template.New("form").ParseFiles("./components/forms.html", "./components/inputs.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
