@@ -11,7 +11,7 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
-//go:embed all:components/forms.html components/inputs.html components/*
+//go:embed components
 var templates embed.FS
 
 func main() {
@@ -21,7 +21,7 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "wails-hmtx",
-		Width:  1024,
+		Width:  1025,
 		Height: 768,
 		AssetServer: &assetserver.Options{
 			Assets: assets,

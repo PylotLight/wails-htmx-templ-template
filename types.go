@@ -16,6 +16,7 @@ type ButtonComponent struct {
 	HxMethod string // Custom HTMX method (get or post)
 	HxURL    string // Custom HTMX URL
 	Classes  string
+	Target   string //hx-swap target
 }
 type SelectComponent struct {
 	Default  string
@@ -24,6 +25,11 @@ type SelectComponent struct {
 	// OnClick  string // Custom onclick event
 	// HxMethod string // Custom HTMX method (get or post)
 	// HxURL    string // Custom HTMX URL
+}
+type CheckBoxComponent struct {
+	Name        string
+	Description string
+	Checked     string
 }
 type FormComponent struct {
 	Button1 ButtonComponent

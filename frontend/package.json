@@ -1,15 +1,17 @@
 {
   "name": "frontend",
-  "private": true,
   "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
   "devDependencies": {
-    "daisyui": "^3.7.0",
+    "daisyui": "^3.7.3",
     "tailwindcss": "^3.3.3",
-    "vite": "^3.0.7"
+    "vite": "^4.4.9"
+  },
+  "private": true,
+  "scripts": {
+    "dev": "bun -b --hot vite",
+    "build": "bun -b vite build",
+    "devvite": "vite",
+    "buildvite": "vite build",
+    "previewvite": "vite preview"
   }
 }

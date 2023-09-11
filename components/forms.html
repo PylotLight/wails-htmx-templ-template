@@ -1,38 +1,59 @@
 {{ define "greetform"}}
-<form id="target-form">
-   <div class="result" id="result">Please enter your name below 👇</div>
-      <div class="input-box" id="input">
-        {{ template "textinput" .NameInput }}
-        {{ template "SubmitButton" .GreetButton }}
-      </div>
-   </form>
+<div class="result" id="result">Please enter your name below 👇</div>
+   <!-- <div class="input-box" id="input"> -->
+      <!-- <div class="join join-horizontal lg:join-horizontal"> -->
+      {{ template "textinput" .NameInput }}
+      {{ template "SubmitButton" .GreetButton }}
+   </div>
+   </div>
 {{end}}
 
-{{define "form1"}}
-<form id="target-form">
-   <h1 className="text-3xl font-bold underline">
-      I'm a go template on the server as form1!
-    </h1>
-   <div class="container mx-auto">
-      <div class="join join-vertical">
-         {{ template "selectinput" .SelectComponent }}
-         <div class="join join-horizontal">
-         {{ template "textinput" .TitleInput }}
-         {{ template "textinput" .ParentInput }}
-         </div>
-              <div class="join join-horizontal">
-         {{ template "textinput2" .Parent2 }}
-         {{ template "textinput2" .Parent3 }}
-         </div>
-         <div class="divider"></div>
-         {{ template "SubmitButton" .Submit }}
-      </div>
-    </div>
-</form>
+{{define "normal"}}
+<h1 className="text-3xl font-bold underline">{{ .Form }}</h1>
+   <div class="join join-vertical inline-flex">
+      <!-- {{ template "selectinput" .SelectComponent }} -->
+      {{ template "textinput" .TitleInput }}
+      {{ template "textinput" .ParentInput }}
+      {{ template "textinput" .Parent2 }}
+      {{ template "textinput" .Parent3 }}
+      <div class="join join-horizontal">
+      {{ template "checkbox" .RegionAU }}
+      {{ template "checkbox" .RegionEU }}
+      {{ template "checkbox" .RegionUS }}
+   </div>
+      {{ template "checkbox" .PDFUpload }}
+      {{ template "checkbox" .Attachments }}
+      <div class="divider"></div>
+      {{ template "SubmitButton" .Submit }}
+   </div>
 {{end}}
+
+{{ define "release"}}
+<h1 className="text-3xl font-bold underline">{{ .Form }}</h1>
+   <div class="join join-vertical inline-flex">
+      {{ template "textinput" .ParentInput }}
+      {{ template "textinput" .Version }}
+      <div class="join join-horizontal">
+      {{ template "checkbox" .RegionAU }}
+      {{ template "checkbox" .RegionEU }}
+      {{ template "checkbox" .RegionUS }}
+   </div>
+      {{ template "range" .PDFUpload }}
+      {{ template "checkbox" .Attachments }}
+      <div class="divider"></div>
+      {{ template "SubmitButton" .Submit }}
+   </div>
+{{end}}
+
+{{ define "menu" }}
+  <ul>
+    <li hx-boost hx-get="greet" hx-target="#target-form" data-menu-item="greet"><a class="font-medium text-2xl">Greet Form</a></li>
+    <li hx-boost hx-get="normal" hx-target="#target-form" data-menu-item="normal"><a class="font-medium text-2xl">Normal</a></li>
+    <!-- Add similar items for other menu items -->
+  </ul>
+{{ end }}
 
 {{define "form2"}}
-<form id="target-form">
    <h1 className="text-3xl font-bold underline">
        I'm a go template on the server as form2!
     </h1>
@@ -40,5 +61,4 @@
 
     <!-- Include multiple dynamic buttons -->
     {{ template "button" .Button1 }}
-</form>
 {{end}}

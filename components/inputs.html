@@ -1,16 +1,16 @@
-{{define "button" }}
-<button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" hx-{{.HxMethod}}="{{ .HxURL }}" hx-trigger="click" hx-target="#target-form" hx-swap="outerHTML transition:false">{{ .Label }}</button>
-{{ end }}
+<!-- {{define "button" }}
+<button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" hx-{{.HxMethod}}="{{ .HxURL }}" hx-trigger="click" {{ .Target }} hx-swap="innerHTML transition:false">{{ .Label }}</button>
+{{ end }} -->
 
 {{define "SubmitButton" }}
-<button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md {{ .Classes }}" type="submit" hx-post="{{ .HxURL }}" hx-trigger="click" hx-swap="outerHTML transition:false">{{ .Label }}</button>
+<button class="btn glass btn-xs sm:btn-sm md:btn-md lg:btn-md outline-blue-500/50 space-x-1{{ .Classes }}" type="submit" hx-post="{{ .HxURL }}" hx-target="{{ .Target }}" hx-trigger="click" hx-swap="outerHTML transition:false">{{ .Label }}</button>
 {{ end }}
 
 {{define "textinput" }}
-<div class="indicator">
+<div class="indicator py-3 my-8 space-x-4">
   <span class="indicator-item indicator-start badge badge-primary">{{ .Placeholder }}</span> 
-  <input type="text" name="{{ .Name }}" placeholder="{{ .Placeholder }}" class="input join-item input-bordered w-full max-w-xs {{ .Classes }}" />
-</div>
+  <input type="text" name="{{ .Name }}" placeholder="{{ .Placeholder }}" class="input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8{{ .Classes }}" />
+  </div>
 {{ end }}
 
 {{ define "textinput2"}}
@@ -31,17 +31,56 @@
 </select>
 {{ end }}
 
-{{ define "checkbox" }}
+{{ define "oldcheckbox" }}
 <div class="form-control">
   <label class="label cursor-pointer">
-    <span class="label-text">Remember me</span> 
-    <input type="checkbox" checked="checked" class="checkbox join-item" />
+    <span class="label-text">{{ .Description }}</span> 
+    <input type="checkbox" name="{{ .Name }}" checked="{{ .Checked}}" class="checkbox join-item" />
   </label>
 </div>
 {{ end }}
 
+{{ define "range"}}
+<input type="range" min="0" max="2" value="2" class="range-lg" step="1" />
+<div class="w-full flex justify-between text-xs px-2 range-lg range-primary">
+  <span>No</span>
+  <span>Single PDF</span>
+  <span>Multiple PDFS</span>
+</div>
+{{end}}
+
+{{ define "checkbox" }}
+<input name="{{ .Name }}" type="checkbox" aria-label="{{ .Description }}" class="btn join-item" {{ .Checked }}/>
+{{ end }}
+
 {{ define "textarea"}}
 <textarea placeholder="Bio" class="textarea textarea-bordered textarea-md w-full max-w-xs" ></textarea>
+{{end}}
+
+{{ define "toast-info" }}
+<div class="toast toast-end">
+  <div class="alert alert-info">
+    <span>{{.Message}}</span>
+  </div>
+</div>
+{{end}}
+
+{{ define "toast-success" }}
+<div class="toast toast-top toast-end">
+<div class="alert alert-success">
+  <span>{{.Message}}</span>
+</div>
+</div>
+{{end}}
+
+{{ define "version"}}
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-title">Total Page Views</div>
+    <div class="stat-value">89,400</div>
+    <div class="stat-desc">21% more than last month</div>
+  </div>
+</div>
 {{end}}
 
 {{ define "navbar" }}

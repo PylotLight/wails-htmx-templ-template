@@ -58,28 +58,42 @@
 } 
 */
 
-/* @keyframes fade-in {
-  from { opacity: 0; }
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
-@keyframes fade-out {
-  to { opacity: 0; }
+@keyframes shrink-x {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
 }
 
-@keyframes slide-from-right {
-  from { transform: translateX(30px); }
+/* ::view-transition-old(main-header),
+::view-transition-new(main-header) {
+  height: auto;
+  right: 0;
+  left: auto;
+  transform-origin: right center;
+}
+::view-transition-image-pair(root) {
+  isolation: auto;
 }
 
-@keyframes slide-to-left {
-  to { transform: translatey(-30px); }
-} */
-
-/* ::view-transition-old(root) {
-  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
-    300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
-}
-
+::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
-    300ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+  animation: none;
+  mix-blend-mode: normal;
+  display: block;
 } */
+
+.main-header {
+  view-transition-name: main-header;
+}
