@@ -5,6 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>wails-hmtx-gotemplates</title>
     <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.3/dist/full.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="src/style.css">
     <link rel="stylesheet" href="src/app.css">
 </head>
@@ -13,9 +14,9 @@
 <div class="drawer lg:drawer-open">
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content flex flex-col items-center justify-center">
-    <div class="mx-auto w-10/12 p-12 lg:rounded-lg shadow-md backdrop-blur-sm bg-white/30 md:rounded-md bg-clip-padding backdrop-filter backdrop-blue-md bg-primary bg-opacity-30 border hover:drop-shadow-xl outline-blue-500">
+    <div class="mx-auto w-10/12 py-20 lg:rounded-lg shadow-md backdrop-blur-sm bg-white/30 md:rounded-md bg-clip-padding backdrop-filter backdrop-blue-md bg-primary bg-opacity-30 border hover:drop-shadow-xl outline-blue-500">
       
-      <form id="target-form" class="main-header">
+      <form id="target-form" class="main-header space-y-6">
         <h1 class="text-2xl antialiased">Select an item from the sidebar to get started </h1>
         </form>
     </div>
@@ -31,13 +32,13 @@
       <li hx-boost hx-get="greet" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl" >Greet Form</a></li>
       <li hx-boost hx-get="normal" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Normal</a></li>
       <li hx-boost hx-get="release" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Release</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Form 3</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Form 4</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Form 5</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Form 6</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Form 7</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Form 8</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Form 9</a></li>
+      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 3</a></li>
+      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 4</a></li>
+      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 5</a></li>
+      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 6</a></li>
+      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 7</a></li>
+      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 8</a></li>
+      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 9</a></li>
       <div id="version" class="stats shadow mt-auto">
         <div class="stat">
           <div class="stat-title">Current App Version</div>

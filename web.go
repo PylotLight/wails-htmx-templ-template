@@ -25,7 +25,10 @@ func (m *MyMiddleware) Middleware(next http.Handler) http.Handler {
 		// 		return
 		// 	}
 		// }
-
+		if r.URL.Path == "/greet" {
+			handleGreetForm(w, r)
+			return
+		}
 		if r.URL.Path == "/normal" {
 			handleNormal(w, r)
 			return
@@ -34,15 +37,15 @@ func (m *MyMiddleware) Middleware(next http.Handler) http.Handler {
 			handleReleaseForm(w, r)
 			return
 		}
-		if r.URL.Path == "/releasesubmit" {
+		if r.URL.Path == "/submitrelease" {
 			handleRelease(w, r)
 			return
 		}
-		if r.URL.Path == "/greet" {
-			handleGreetForm(w, r)
+		if r.URL.Path == "/submitnormal" {
+			handleRelease(w, r)
 			return
 		}
-		if r.URL.Path == "/greetsubmit" {
+		if r.URL.Path == "/submitgreet" {
 			NewApp().handleGreet(w, r)
 			return
 		}
@@ -51,17 +54,17 @@ func (m *MyMiddleware) Middleware(next http.Handler) http.Handler {
 	})
 }
 
-func YourHandler(w http.ResponseWriter, r *http.Request) {
-	// Handle your request and render your template
-	tmpl, _ := template.New("form").ParseFS(templates, "components/forms.html", "components/inputs.html")
-	// Determine which menu item was clicked and pass it to the template
-	menuItem := r.FormValue("menu-item")
+// func YourHandler(w http.ResponseWriter, r *http.Request) {
+// 	// Handle your request and render your template
+// 	tmpl, _ := template.New("form").ParseFS(templates, "components/forms.html", "components/inputs.html")
+// 	// Determine which menu item was clicked and pass it to the template
+// 	menuItem := r.FormValue("menu-item")
 
-	// Render your template with the selected menu item
-	tmpl.ExecuteTemplate(w, "menu", struct {
-		SelectedMenuItem string
-	}{SelectedMenuItem: menuItem})
-}
+// 	// Render your template with the selected menu item
+// 	tmpl.ExecuteTemplate(w, "menu", struct {
+// 		SelectedMenuItem string
+// 	}{SelectedMenuItem: menuItem})
+// }
 
 func handleGreetForm(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -69,13 +72,14 @@ func handleGreetForm(w http.ResponseWriter, r *http.Request) {
 		"NameInput": TextComponent{
 			Name:        "name",
 			Classes:     "",
-			Placeholder: "Greet",
+			Placeholder: "Wails User",
+			Label:       "Greet",
 		},
 		"GreetButton": ButtonComponent{
 			Label:    "Greet",
-			HxURL:    "/greetsubmit",
+			HxURL:    "/submitgreet",
 			HxMethod: "post",
-			Classes:  "join-item",
+			Classes:  "",
 			Target:   "#result",
 			// Add other button properties
 		},
@@ -101,63 +105,43 @@ func (a *App) handleGreet(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleNormal(w http.ResponseWriter, r *http.Request) {
-	formData := map[string]interface{}{
-		"TitleInput": TextComponent{
+	formData := NormalForm{
+		FormTitle: "Normal Form",
+		Title: TextComponent{
 			Name:        "Title",
-			Classes:     "my-2",
+			Classes:     "",
 			Placeholder: "Title",
+			Label:       "Change Title",
 		},
-		"ParentInput": TextComponent{
-			Name:        "Parent",
-			Placeholder: "Parent",
+		Parents: []TextComponent{
+			{Name: "RegionParent", Placeholder: "AU Parent", Label: "AU RITM"},
+			{Name: "RegionParent", Placeholder: "EU Parent", Label: "EU RITM"},
+			{Name: "RegionParent", Placeholder: "US Parent", Label: "US RITM"},
 		},
-		"Parent2": TextComponent{
-			Name:        "Parent2",
-			Placeholder: "Parent2",
+		Regions: []CheckBoxComponent{
+			{Name: "Regions", Description: "AU", Checked: "Checked"},
+			{Name: "Regions", Description: "EU", Checked: ""},
+			{Name: "Regions", Description: "US", Checked: ""},
 		},
-		"Parent3": TextComponent{
-			Name:        "Parent3",
-			Placeholder: "Parent3",
+		PDFOption: []CheckBoxComponent{
+			{Name: "PDFUpload", Description: "None", Checked: ""},
+			{Name: "PDFUpload", Description: "Single", Checked: ""},
+			{Name: "PDFUpload", Description: "Multiple", Checked: ""},
 		},
-		"SelectComponent": SelectComponent{
-			Default:  "Select an option",
-			Elements: []string{"Item 1", "Item 2"},
-			Classes:  "items-center",
-		},
-		"RegionAU": CheckBoxComponent{
-			Name:        "RegionAU",
-			Description: "RegionAU",
-			Checked:     "checked",
-		},
-		"RegionEU": CheckBoxComponent{
-			Name:        "RegionEU",
-			Description: "RegionEU",
-			Checked:     "",
-		},
-		"RegionUS": CheckBoxComponent{
-			Name:        "RegionUS",
-			Description: "RegionUS",
-			Checked:     "",
-		},
-		"PDFUpload": CheckBoxComponent{
-			Name:        "PDFUpload",
-			Description: "PDFUpload",
-			Checked:     "checked",
-		},
-		"Attachments": CheckBoxComponent{
+		Attachments: CheckBoxComponent{
 			Name:        "Attachments",
 			Description: "Upload Attachments",
 			Checked:     "",
 		},
-		"Submit": ButtonComponent{
+		SubmitButton: ButtonComponent{
 			Label:    "Submit",
-			HxURL:    "/submitForm1",
+			HxURL:    "/submitNormal",
 			HxMethod: "post",
-			Classes:  "my-8",
+			Classes:  "",
 			// Add other button properties
 		},
-		// Add other form field data
 	}
+	// Add other form field data
 	tmpl, err := template.New("form").ParseFS(templates, "components/forms.html", "components/inputs.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -173,51 +157,105 @@ func handleNormal(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleReleaseForm(w http.ResponseWriter, r *http.Request) {
-	formData := map[string]interface{}{
-		"ParentInput": TextComponent{
+	formData := ReleaseForm{
+		FormTitle: "Release Form",
+		Parent: TextComponent{
 			Name:        "Parent",
-			Placeholder: "RLSE12356",
+			Placeholder: "RLSE123456",
+			Label:       "Release Code",
 		},
-		"Version": TextComponent{
+		Version: TextComponent{
 			Name:        "Version",
-			Classes:     "my-2",
-			Placeholder: "4.1.0",
+			Placeholder: "4.1.2",
+			Label:       "Release Version",
 		},
-		"RegionAU": CheckBoxComponent{
-			Name:        "RegionAU",
-			Description: "RegionAU",
-			Checked:     "checked",
+		Regions: []CheckBoxComponent{
+			{Name: "Regions", Description: "AU", Checked: "Checked"},
+			{Name: "Regions", Description: "EU", Checked: "Checked"},
+			{Name: "Regions", Description: "US", Checked: "Checked"},
 		},
-		"RegionEU": CheckBoxComponent{
-			Name:        "RegionEU",
-			Description: "RegionEU",
-			Checked:     "checked",
+		PDFOption: []CheckBoxComponent{
+			{Name: "PDFUpload", Description: "None", Checked: ""},
+			{Name: "PDFUpload", Description: "Single", Checked: ""},
+			{Name: "PDFUpload", Description: "Multiple", Checked: "Checked"},
 		},
-		"RegionUS": CheckBoxComponent{
-			Name:        "RegionUS",
-			Description: "RegionUS",
-			Checked:     "checked",
-		},
-		"PDFUpload": CheckBoxComponent{
-			Name:        "PDFUpload",
-			Description: "PDFUpload",
-			Checked:     "checked",
-		},
-		"Attachments": CheckBoxComponent{
+		ChangeBox: TextComponent{Name: "ChangeBox", Placeholder: "Paste changes from Google sheet here."},
+		Attachments: CheckBoxComponent{
 			Name:        "Attachments",
 			Description: "Upload Attachments",
-			Checked:     "checked",
+			Checked:     "Checked",
 		},
-		"Submit": ButtonComponent{
+		SubmitButton: ButtonComponent{
 			Label:    "Submit",
-			HxURL:    "/releasesubmit",
+			HxURL:    "/submitRelease",
 			HxMethod: "post",
-			Target:   "#toast",
+			Classes:  "",
 			// Add other button properties
 		},
-		"Form": r.URL.EscapedPath(),
-		// Add other form field data
 	}
+
+	// formData := map[string]interface{}{
+	// 	"ParentInput": TextComponent{
+	// 		Name:        "Parent",
+	// 		Placeholder: "RLSE12356",
+	// 	},
+	// 	"Version": TextComponent{
+	// 		Name:        "Version",
+	// 		Classes:     "my-2",
+	// 		Placeholder: "4.1.0",
+	// 	},
+	// 	"RegionAU": CheckBoxComponent{
+	// 		Name:        "RegionAU",
+	// 		Description: "RegionAU",
+	// 		Checked:     "checked",
+	// 	},
+	// 	"RegionEU": CheckBoxComponent{
+	// 		Name:        "RegionEU",
+	// 		Description: "RegionEU",
+	// 		Checked:     "checked",
+	// 	},
+	// 	"RegionUS": CheckBoxComponent{
+	// 		Name:        "RegionUS",
+	// 		Description: "RegionUS",
+	// 		Checked:     "checked",
+	// 	},
+	// 	// "PDFUpload": PDFUpload{
+	// 	// 	Options: []CheckBoxComponent{
+	// 	// 		{Name: "PDFUpload", Description: "No", Checked: ""},
+	// 	// 		{Name: "PDFUpload", Description: "Single", Checked: ""},
+	// 	// 		{Name: "PDFUpload", Description: "Multi", Checked: ""},
+	// 	// 	},
+	// 	// },
+	// 	"PDFUploadNo": CheckBoxComponent{
+	// 		Name:        "PDFUpload",
+	// 		Description: "No",
+	// 		Checked:     "checked",
+	// 	},
+	// 	"PDFUploadSingle": CheckBoxComponent{
+	// 		Name:        "PDFUpload",
+	// 		Description: "Single PDF",
+	// 		Checked:     "",
+	// 	},
+	// 	"PDFUploadMulti": CheckBoxComponent{
+	// 		Name:        "PDFUpload",
+	// 		Description: "Multi PDF",
+	// 		Checked:     "",
+	// 	},
+	// 	"Attachments": CheckBoxComponent{
+	// 		Name:        "Attachments",
+	// 		Description: "Upload Attachments",
+	// 		Checked:     "checked",
+	// 	},
+	// 	"Submit": ButtonComponent{
+	// 		Label:    "Submit",
+	// 		HxURL:    "/releasesubmit",
+	// 		HxMethod: "post",
+	// 		Target:   "#toast",
+	// 		// Add other button properties
+	// 	},
+	// 	"Form": r.URL.EscapedPath(),
+	// Add other form field data
+	// }
 	println(r.URL.Path)
 	tmpl, err := template.New("form").ParseFS(templates, "components/forms.html", "components/inputs.html")
 	if err != nil {

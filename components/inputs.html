@@ -3,24 +3,15 @@
 {{ end }} -->
 
 {{define "SubmitButton" }}
-<button class="btn glass btn-xs sm:btn-sm md:btn-md lg:btn-md outline-blue-500/50 space-x-1{{ .Classes }}" type="submit" hx-post="{{ .HxURL }}" hx-target="{{ .Target }}" hx-trigger="click" hx-swap="outerHTML transition:false">{{ .Label }}</button>
+<button class="btn{{ .Classes }}" type="submit" hx-post="{{ .HxURL }}" hx-target="{{ .Target }}" hx-trigger="click" hx-swap="outerHTML transition:false">{{ .Label }}</button>
 {{ end }}
 
 {{define "textinput" }}
-<div class="indicator py-3 my-8 space-x-4">
-  <span class="indicator-item indicator-start badge badge-primary">{{ .Placeholder }}</span> 
+<!-- <div class="indicator"> -->
+  <!-- <span class="indicator-item indicator-start badge badge-primary">{{ .Label }}</span>  -->
   <input type="text" name="{{ .Name }}" placeholder="{{ .Placeholder }}" class="input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8{{ .Classes }}" />
-  </div>
+<!-- </div> -->
 {{ end }}
-
-{{ define "textinput2"}}
-<div class="form-control w-full max-w-xs">
-  <label class="label">
-    <span class="label-text badge badge-primary">{{ .Placeholder }}</span>
-  </label>
-  <input type="text" name="{{ .Name }}" placeholder="{{ .Placeholder }}" class="input join-item input-bordered w-full max-w-xs {{ .Classes }}" />
-</div>
-{{end}}
 
 {{ define "selectinput" }}
 <select class="select select-bordered w-full max-w-xs my-8 {{ .Classes }}">
@@ -31,30 +22,16 @@
 </select>
 {{ end }}
 
-{{ define "oldcheckbox" }}
-<div class="form-control">
-  <label class="label cursor-pointer">
-    <span class="label-text">{{ .Description }}</span> 
-    <input type="checkbox" name="{{ .Name }}" checked="{{ .Checked}}" class="checkbox join-item" />
-  </label>
-</div>
-{{ end }}
-
-{{ define "range"}}
-<input type="range" min="0" max="2" value="2" class="range-lg" step="1" />
-<div class="w-full flex justify-between text-xs px-2 range-lg range-primary">
-  <span>No</span>
-  <span>Single PDF</span>
-  <span>Multiple PDFS</span>
-</div>
+{{ define "radio"}}
+<input type="radio" name="{{ .Name }}" aria-label="{{ .Description }}" class="btn radio join-item btn-xs sm:btn-sm md:btn-md lg:btn-lg"/>
 {{end}}
 
 {{ define "checkbox" }}
-<input name="{{ .Name }}" type="checkbox" aria-label="{{ .Description }}" class="btn join-item" {{ .Checked }}/>
+<input type="checkbox" name="{{ .Name }}"  aria-label="{{ .Description }}" class="btn join-item" {{ .Checked }}/>
 {{ end }}
 
 {{ define "textarea"}}
-<textarea placeholder="Bio" class="textarea textarea-bordered textarea-md w-full max-w-xs" ></textarea>
+<textarea name="{{ .Name }}" placeholder="{{ .Placeholder }}" class="textarea textarea-bordered textarea-primary textarea-lg w-full max-w-xs" ></textarea>
 {{end}}
 
 {{ define "toast-info" }}

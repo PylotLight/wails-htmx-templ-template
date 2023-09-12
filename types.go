@@ -1,7 +1,7 @@
 package main
 
 type TextComponent struct {
-	// Label string
+	Label       string
 	Name        string
 	Placeholder string
 	Classes     string
@@ -26,13 +26,30 @@ type SelectComponent struct {
 	// HxMethod string // Custom HTMX method (get or post)
 	// HxURL    string // Custom HTMX URL
 }
+
 type CheckBoxComponent struct {
 	Name        string
 	Description string
 	Checked     string
 }
-type FormComponent struct {
-	Button1 ButtonComponent
-	Button2 ButtonComponent
-	// Add other form fields as needed
+
+type NormalForm struct {
+	Title        TextComponent
+	Parents      []TextComponent
+	Regions      []CheckBoxComponent
+	PDFOption    []CheckBoxComponent
+	Attachments  CheckBoxComponent
+	SubmitButton ButtonComponent
+	FormTitle    string
+}
+
+type ReleaseForm struct {
+	Parent       TextComponent
+	Version      TextComponent
+	Regions      []CheckBoxComponent
+	PDFOption    []CheckBoxComponent
+	Attachments  CheckBoxComponent
+	ChangeBox    TextComponent
+	SubmitButton ButtonComponent
+	FormTitle    string
 }

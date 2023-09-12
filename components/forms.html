@@ -9,39 +9,61 @@
 {{end}}
 
 {{define "normal"}}
-<h1 className="text-3xl font-bold underline">{{ .Form }}</h1>
-   <div class="join join-vertical inline-flex">
-      <!-- {{ template "selectinput" .SelectComponent }} -->
-      {{ template "textinput" .TitleInput }}
-      {{ template "textinput" .ParentInput }}
-      {{ template "textinput" .Parent2 }}
-      {{ template "textinput" .Parent3 }}
-      <div class="join join-horizontal">
-      {{ template "checkbox" .RegionAU }}
-      {{ template "checkbox" .RegionEU }}
-      {{ template "checkbox" .RegionUS }}
+<h1 className="text-7xl font-bold underline">{{ .FormTitle }}</h1>
+   <div class="join join-vertical gap-4">
+      {{ template "textinput" .Title }}
+      {{ range .Parents}}
+      {{ template "textinput" . }}
+      {{end}}
+   <div class="join join-horizontal">
+         <div class="indicator">
+            <span class="indicator-item indicator-start badge badge-primary">Regions</span> 
+      {{ range .Regions }}
+         {{ template "checkbox" . }}
+      {{end}}
+         </div>
    </div>
-      {{ template "checkbox" .PDFUpload }}
+   <div class="join join-horizontal">
+      <div class="indicator">
+         <span class="indicator-item indicator-start badge badge-primary">PDF Upload</span> 
+         {{ range .PDFOption }}
+            {{ template "radio" . }}
+         {{end}}
+       </div>
+   </div>
       {{ template "checkbox" .Attachments }}
       <div class="divider"></div>
-      {{ template "SubmitButton" .Submit }}
+      {{ template "SubmitButton" .SubmitButton }}
    </div>
 {{end}}
 
 {{ define "release"}}
-<h1 className="text-3xl font-bold underline">{{ .Form }}</h1>
-   <div class="join join-vertical inline-flex">
-      {{ template "textinput" .ParentInput }}
-      {{ template "textinput" .Version }}
+<h1 className="text-3xl font-bold underline">{{ .FormTitle }}</h1>
+   <div class="join join-vertical gap-4">
       <div class="join join-horizontal">
-      {{ template "checkbox" .RegionAU }}
-      {{ template "checkbox" .RegionEU }}
-      {{ template "checkbox" .RegionUS }}
+      {{ template "textinput" .Parent }}
+      {{ template "textinput" .Version }}
    </div>
-      {{ template "range" .PDFUpload }}
+      <div class="join join-horizontal">
+         <div class="indicator">
+            <span class="indicator-item indicator-start badge badge-primary">Regions</span> 
+      {{ range .Regions }}
+         {{ template "checkbox" . }}
+      {{end}}
+         </div>
+   </div>
+   <div class="join join-horizontal">
+      <div class="indicator">
+         <span class="indicator-item indicator-start badge badge-primary">PDF Upload</span> 
+         {{ range .PDFOption }}
+            {{ template "radio" . }}
+         {{end}}
+       </div>
+   </div>
       {{ template "checkbox" .Attachments }}
+      {{ template "textarea" .ChangeBox }}
       <div class="divider"></div>
-      {{ template "SubmitButton" .Submit }}
+      {{ template "SubmitButton" .SubmitButton }}
    </div>
 {{end}}
 
