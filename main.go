@@ -21,7 +21,7 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "wails-hmtx",
-		Width:  1030,
+		Width:  1040,
 		Height: 768,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
