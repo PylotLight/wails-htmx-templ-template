@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "{{.ProjectName}}",
   "version": "0.0.0",
   "devDependencies": {
     "daisyui": "latest",
@@ -9,8 +9,8 @@
   },
   "private": true,
   "scripts": {
-    "dev": "bun -b vite",
+    "dev": "bun -b --hot vite",
     "build": "bun -b vite build",
-    "preview": "bun -b vite preview"
+    "preview": "vite preview"
   }
-}
+,"author":"{{.AuthorName}}"}

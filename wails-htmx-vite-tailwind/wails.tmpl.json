@@ -1,13 +1,13 @@
 {
   "$schema": "https://wails.io/schemas/config.v2.json",
-  "name": "wails-hmtx-gotemplates",
-  "outputfilename": "wails-hmtx-gotemplates",
+  "name": "{{.ProjectName}}",
+  "outputfilename": "{{.BinaryName}}",
   "frontend:install": "bun install",
   "frontend:build": "bun run build",
   "frontend:dev:watcher": "bun run dev",
   "frontend:dev:serverUrl": "auto",
   "author": {
-    "name": "Light",
-    "email": "admin@email.com"
+    "name": "{{.AuthorName}}",
+    "email": "{{.AuthorEmail}}"
   }
 }

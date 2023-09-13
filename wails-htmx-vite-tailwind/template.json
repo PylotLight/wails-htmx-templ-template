@@ -1,0 +1,7 @@
+{
+  "name": "Wails + Vite + HTMX + TailwindCSS (v3) + DaisyUI template",
+  "shortname": "wails-htmx-vite-tailwind",
+  "author": "Light",
+  "description": "Wails template built from using the vanilla template then manually installing HTMX + TailwindCSS with some extra middleware and styling configuration (v3)",
+  "helpurl": "https://wails.io/"
+}
