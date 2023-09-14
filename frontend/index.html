@@ -1,59 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>wails-hmtx-gotemplates</title>
-    <script src="https://unpkg.com/htmx.org@1.9.5"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.3/dist/full.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="src/app.css">
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>wails-hmtx-gotemplates</title>
+  <script src="https://unpkg.com/htmx.org@1.9.5"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.3/dist/full.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="src/style.css">
+  <link rel="stylesheet" href="src/app.css">
 </head>
+
 <body>
-<div id="app"> 
-<div class="drawer lg:drawer-open">
-  <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content flex flex-col items-center justify-center">
-    <div class="mx-auto w-10/12 py-20 lg:rounded-lg shadow-md backdrop-blur-sm bg-white/10 md:rounded-md bg-clip-padding backdrop-filter backdrop-blue-md bg-primary bg-opacity-30 border hover:drop-shadow-xl outline-blue-500">
-      
-      <form id="target-form" class="main-header space-y-6">
-        <h1 class="text-2xl antialiased">Select an item from the sidebar to get started </h1>
-        </form>
-    </div>
-    <!-- <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label> -->
-  
-  </div> 
-  <div class="drawer-side">
-    <label for="my-drawer-2" class="drawer-overlay"></label> 
-    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-      <!-- Sidebar content here -->
+  <div id="app">
+    <div class="drawer lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content flex flex-col items-center justify-center">
+        <div
+          class="mx-auto w-10/12 py-20 lg:rounded-lg shadow-md backdrop-blur-sm bg-white/30 md:rounded-md bg-clip-padding backdrop-filter backdrop-blue-md bg-primary bg-opacity-30 border hover:drop-shadow-xl outline-blue-500">
 
-      <img id="logo" class="logo max-w-[50%]" src="src/assets/images/logo-universal.png">
-      <li hx-boost hx-get="greet" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl" >Greet Form</a></li>
-      <li hx-boost hx-get="normal" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Normal</a></li>
-      <li hx-boost hx-get="release" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Release</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 3</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 4</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 5</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 6</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 7</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 8</a></li>
-      <li hx-boost hx-get="form2" hx-target="#target-form" hx-swap="innerHTML transition:true"><a class="font-medium text-2xl">Change Type 9</a></li>
-      <div id="version" class="stats shadow mt-auto">
-        <div class="stat">
-          <div class="stat-title">Current App Version</div>
-          <div class="stat-value">0.4.3</div>
-          <div class="stat-desc">No new update available</div>
+          <form id="target-form" class="main-header space-y-6">
+            <h1 class="text-2xl antialiased">Select an item from the sidebar to get started </h1>
+          </form>
         </div>
-      </div>
-    </ul>
+        <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
 
-    
+      </div>
+      <div class="drawer-side">
+        <label for="my-drawer-2" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <!-- Sidebar content here -->
+
+          <img id="logo" class="logo max-w-[50%]" src="src/assets/images/logo-universal.png">
+          <li hx-boost hx-get="greet" hx-target="#target-form" hx-swap="innerHTML transition:true"><a
+              class="font-medium text-2xl">Greet Form</a></li>
+          <div id="version" class="stats shadow mt-auto">
+            <div class="stat">
+              <div class="stat-title">Current App Version</div>
+              <div class="stat-value">0.0.0</div>
+              <div class="stat-desc">No new update available</div>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <div id="toast">
+      </div>
+    </div>
   </div>
-  <div id="toast">
   </div>
-</div>
-   
-</div>
-</div>
 </body>
+
 </html>
