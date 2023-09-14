@@ -22,15 +22,19 @@ var templates embed.FS
 var icon []byte
 
 func main() {
-	// Create an instance of the app structure
+	// Create an instance of the app structure and custom Middleware
 	app := NewApp()
+	customMiddleware := &customMiddleware{}
+
+	// Create an instance of the custom Middleware
+	customMiddleware
 
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:             "{{.ProjectName}}",
-		Width:             1024,
+		Width:             1040,
 		Height:            768,
-		MinWidth:          1024,
+		MinWidth:          1040,
 		MinHeight:         768,
 		MaxWidth:          1280,
 		MaxHeight:         800,

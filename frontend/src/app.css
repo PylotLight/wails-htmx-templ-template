@@ -6,6 +6,7 @@ body {
   font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
   "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif;
+  background-image: radial-gradient(at 47% 33%, hsl(162deg 77% 40% / 72%) 0, transparent 45%), radial-gradient(at 82% 65%, hsl(218deg 60.88% 40.07%) 0, transparent 55%);
 }
 
 @font-face {

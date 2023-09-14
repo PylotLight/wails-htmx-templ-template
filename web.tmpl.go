@@ -34,6 +34,10 @@ func (c *customMiddleware) Middleware(next http.Handler) http.Handler {
 			handleGreetForm(w, r)
 			return
 		}
+		if r.URL.Path == "/submitgreet" {
+			handleGreet(w, r)
+			return
+		}
 		// Call the next handler in the chain
 		next.ServeHTTP(w, r)
 	})
@@ -71,7 +75,7 @@ func handleGreetForm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (a *App) handleGreet(w http.ResponseWriter, r *http.Request) {
+func handleGreet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("HX-Reswap", "innerHTML")
 	w.Write([]byte(a.Greet(r.FormValue("name"))))
 }
