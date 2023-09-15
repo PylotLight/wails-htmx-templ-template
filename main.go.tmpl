@@ -24,10 +24,6 @@ var icon []byte
 func main() {
 	// Create an instance of the app structure and custom Middleware
 	app := NewApp()
-	customMiddleware := &customMiddleware{}
-
-	// Create an instance of the custom Middleware
-	customMiddleware
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -47,7 +43,7 @@ func main() {
 		AssetServer:       &assetserver.Options{
 			Assets: assets,			
 			Middleware: assetserver.ChainMiddleware(
-				customMiddleware.Middleware,
+				Middleware,
 			),
 		},
 		Menu:              nil,

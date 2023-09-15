@@ -21,12 +21,7 @@ type ButtonComponent struct {
 	Target   string //hx-swap target
 }
 
-// Define a custom middleware type
-type customMiddleware struct {
-	Next http.Handler
-}
-
-func (c *customMiddleware) Middleware(next http.Handler) http.Handler {
+func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Your custom middleware logic goes here
 
