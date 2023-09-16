@@ -2,6 +2,7 @@
   "name": "{{.ProjectName}}",
   "version": "0.0.0",
   "devDependencies": {
+    "autoprefixer": "^10.4.15",
     "daisyui": "latest",
     "postcss": "^8.4.29",
     "tailwindcss": "^3.3.3",
@@ -11,6 +12,6 @@
   "scripts": {
     "dev": "bun -b --hot vite",
     "build": "bun -b vite build",
-    "preview": "vite preview"
+    "preview": "bun -b vite preview"
   }
 ,"author":"{{.AuthorName}}"}
