@@ -62,7 +62,7 @@ func Middleware(next http.Handler) http.Handler {
 			return
 		}
 		if r.URL.Path == "/submitgreet" {
-			handleGreet(w, r)
+			NewApp().handleGreet(w, r)
 			return
 		}
 		// Call the next handler in the chain
