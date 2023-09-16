@@ -24,7 +24,25 @@ type ButtonComponent struct {
 func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Your custom middleware logic goes here
+		
+		if r.URL.Path == "/" && r.Method == http.MethodGet {
+			tmpl := template.Must(template.ParseFiles("frontend/index.html", "templates/forms.html", "templates/inputs.html"))
+			index := Index{
+				Version: AppVersion{
+					Version: version, UpdateText: "No update available"},
+				Pages: []Page{
+					{Label: "Greet Form", Path: "/greet"},
+				},
+			}
 
+			err := tmpl.Execute(w, index)
+			if err != nil {
+				println("Error:", err.Error())
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			return
+		}
 		if r.URL.Path == "/greet" {
 			handleGreetForm(w, r)
 			return
