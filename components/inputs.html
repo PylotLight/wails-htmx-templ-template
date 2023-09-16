@@ -1,16 +1,9 @@
-<!-- {{define "button" }}
-<button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-md" hx-{{.HxMethod}}="{{ .HxURL }}" hx-trigger="click" {{ .Target }} hx-swap="innerHTML transition:false">{{ .Label }}</button>
-{{ end }} -->
-
 {{define "SubmitButton" }}
 <button class="btn{{ .Classes }}" type="submit" hx-post="{{ .HxURL }}" hx-target="{{ .Target }}" hx-trigger="click" hx-swap="outerHTML transition:false">{{ .Label }}</button>
 {{ end }}
 
 {{define "textinput" }}
-<!-- <div class="indicator"> -->
-  <!-- <span class="indicator-item indicator-start badge badge-primary">{{ .Label }}</span>  -->
   <input type="text" name="{{ .Name }}" placeholder="{{ .Placeholder }}" class="input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8{{ .Classes }}" />
-<!-- </div> -->
 {{ end }}
 
 {{ define "selectinput" }}
@@ -51,11 +44,11 @@
 {{end}}
 
 {{ define "version"}}
-<div class="stats shadow">
+<div class="stats shadow mt-auto">
   <div class="stat">
-    <div class="stat-title">Total Page Views</div>
-    <div class="stat-value">89,400</div>
-    <div class="stat-desc">21% more than last month</div>
+    <div class="stat-title">Current App Version</div>
+    <div class="stat-value">{{ .Version }}</div>
+    <div class="stat-desc">{{ .UpdateText }}</div>
   </div>
 </div>
 {{end}}
