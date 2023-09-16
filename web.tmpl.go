@@ -70,7 +70,7 @@ func handleGreetForm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func handleGreet(w http.ResponseWriter, r *http.Request) {
+func (a *App) handleGreet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("HX-Reswap", "innerHTML")
 	w.Write([]byte(a.Greet(r.FormValue("name"))))
 }
