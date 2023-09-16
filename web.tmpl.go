@@ -34,11 +34,10 @@ type Index struct {
 	Version AppVersion
 }
 
-
 func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Your custom middleware logic goes here
-		
+
 		if r.URL.Path == "/" && r.Method == http.MethodGet {
 			tmpl := template.Must(template.ParseFiles("frontend/index.html", "templates/forms.html", "templates/inputs.html"))
 			index := Index{
