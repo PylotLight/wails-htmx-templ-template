@@ -21,6 +21,20 @@ type ButtonComponent struct {
 	Target   string //hx-swap target
 }
 
+type Page struct {
+	Label string
+	Path  string
+}
+type AppVersion struct {
+	Version    string
+	UpdateText string
+}
+type Index struct {
+	Pages   []Page
+	Version AppVersion
+}
+
+
 func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Your custom middleware logic goes here
