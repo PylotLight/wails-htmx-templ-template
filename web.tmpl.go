@@ -39,7 +39,7 @@ func Middleware(next http.Handler) http.Handler {
 		// Your custom middleware logic goes here
 
 		if r.URL.Path == "/" && r.Method == http.MethodGet {
-			tmpl := template.Must(template.ParseFS(assets, "frontend/index.html", "templates/forms.html", "templates/inputs.html"))
+			tmpl := template.Must(template.ParseFS(assets, "frontend/dist/index.html", "templates/forms.html", "templates/inputs.html"))
 			index := Index{
 				Version: AppVersion{
 					Version: version, UpdateText: "No update available"},
