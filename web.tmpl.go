@@ -39,7 +39,7 @@ func Middleware(next http.Handler) http.Handler {
 		// Your custom middleware logic goes here
 
 		if r.URL.Path == "/" && r.Method == http.MethodGet {
-			tmpl := template.Must(template.ParseFiles("frontend/index.html", "templates/forms.html", "templates/inputs.html"))
+			tmpl := template.Must(template.ParseFS(assets, "frontend/index.html", "templates/forms.html", "templates/inputs.html"))
 			index := Index{
 				Version: AppVersion{
 					Version: version, UpdateText: "No update available"},
@@ -87,7 +87,7 @@ func handleGreetForm(w http.ResponseWriter, r *http.Request) {
 		},
 		// Add other form field data
 	}
-	tmpl, err := template.New("form").ParseFS(templates, "components/forms.html", "components/inputs.html")
+	tmpl, err := template.New("form").ParseFS(assets, "templates/forms.html", "templates/inputs.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
