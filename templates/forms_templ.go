@@ -12,7 +12,7 @@ import "bytes"
 import "net/http"
 import "fmt"
 
-import types "wailstest/types"
+import types "changeme/types"
 
 func Pages(index types.IndexForm) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {

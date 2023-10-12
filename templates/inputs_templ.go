@@ -9,7 +9,7 @@ import "context"
 import "io"
 import "bytes"
 
-import "wailstest/types"
+import "changeme/types"
 
 func Button(classes string, hxUrl string, hxTarget string, label string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
@@ -89,7 +89,7 @@ func TextInput(name string, placeholder string) templ.Component {
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("\" class=\"input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8{{ .Classes }}\">")
+		_, err = templBuffer.WriteString("\" class=\"input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8\">")
 		if err != nil {
 			return err
 		}
@@ -150,16 +150,3 @@ func VersionComponent(form types.AppVersion) templ.Component {
 		return err
 	})
 }
-
-// func Version(form types.AppVersion) templ.Component {
-//     return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
-//         _, err := io.WriteString(w, `<div class="stats shadow mt-auto">
-//     <div class='stat'>
-//         <div class='stat-title'>Current App Version</div>
-//         <div class='stat-value'>`+form.Version+`</div>
-//         <div class='stat-desc'>`+form.UpdateText+`</div>
-//     </div>
-//     </div>`)
-//         return err
-//     })
-// }
