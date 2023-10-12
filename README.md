@@ -2,17 +2,20 @@
 
 ## About
 
-This is the official Wails Vanilla template.
+This template uses a unique combination of pure htmx for interactivity plus Go templates for creating components and forms, also included:
+- Built-in added styling to show off some of Tailwind and Daisyui.
+- Uses HTMX for MPA style interactivity on a single page as per SPA.
+- Added custom Chi middleware for handling HTMX calls in an easy to maintain routing configuration.
+- Built-in version display linked to version variable from main which can be updated on app build for CICD and/or during runtime.
+- Scripts configured to use the Bun runtime to launch Vite. (Make sure you have bun installed first)
+- Also using https://templ.guide/ for components and templates use "templ generate" to update templ files. 
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
 
 ## Live Development
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+To run in live development mode, run `wails dev` in the project directory. In another terminal, go into the `frontend`
+directory and run `bun run dev`. The frontend dev server will run on http://localhost:34115. Connect to this in your
+browser and connect to your application.
 
 ## Building
 
