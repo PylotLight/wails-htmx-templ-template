@@ -9,7 +9,8 @@ import "context"
 import "io"
 import "bytes"
 
-import "changeme/types"
+import "net/http"
+import "fmt"
 
 func Button(classes string, hxUrl string, hxTarget string, label string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
@@ -89,7 +90,7 @@ func TextInput(name string, placeholder string) templ.Component {
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("\" class=\"input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8\">")
+		_, err = templBuffer.WriteString("\" class=\"input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8{{ .Classes }}\">")
 		if err != nil {
 			return err
 		}
@@ -100,7 +101,7 @@ func TextInput(name string, placeholder string) templ.Component {
 	})
 }
 
-func VersionComponent(form types.AppVersion) templ.Component {
+func VersionComponent(Version string, UpdateText string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
 		if !templIsBuffer {
@@ -126,7 +127,7 @@ func VersionComponent(form types.AppVersion) templ.Component {
 		if err != nil {
 			return err
 		}
-		var var_6 string = form.Version
+		var var_6 string = Version
 		_, err = templBuffer.WriteString(templ.EscapeString(var_6))
 		if err != nil {
 			return err
@@ -135,7 +136,7 @@ func VersionComponent(form types.AppVersion) templ.Component {
 		if err != nil {
 			return err
 		}
-		var var_7 string = form.UpdateText
+		var var_7 string = UpdateText
 		_, err = templBuffer.WriteString(templ.EscapeString(var_7))
 		if err != nil {
 			return err
@@ -149,4 +150,94 @@ func VersionComponent(form types.AppVersion) templ.Component {
 		}
 		return err
 	})
+}
+
+func Pages(data map[string]interface{}) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		templBuffer, templIsBuffer := w.(*bytes.Buffer)
+		if !templIsBuffer {
+			templBuffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templBuffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		var_8 := templ.GetChildren(ctx)
+		if var_8 == nil {
+			var_8 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		for _, i := range data["Pages"].([]map[string]interface{}) {
+			_, err = templBuffer.WriteString("<li hx-boost hx-get=\"")
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString(templ.EscapeString(i["Path"].(string)))
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString("\" hx-target=\"#target-form\" hx-swap=\"innerHTML transition:true\"><a class=\"font-medium text-2xl\">")
+			if err != nil {
+				return err
+			}
+			var var_9 string = i["Label"].(string)
+			_, err = templBuffer.WriteString(templ.EscapeString(var_9))
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString("</a></li>")
+			if err != nil {
+				return err
+			}
+		}
+		if !templIsBuffer {
+			_, err = templBuffer.WriteTo(w)
+		}
+		return err
+	})
+}
+
+func GreetForm(endpoint string, target string, label string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		templBuffer, templIsBuffer := w.(*bytes.Buffer)
+		if !templIsBuffer {
+			templBuffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templBuffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		var_10 := templ.GetChildren(ctx)
+		if var_10 == nil {
+			var_10 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, err = templBuffer.WriteString("<div class=\"result\" id=\"result\">")
+		if err != nil {
+			return err
+		}
+		var_11 := `Please enter your name below 👇`
+		_, err = templBuffer.WriteString(var_11)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</div>")
+		if err != nil {
+			return err
+		}
+		err = TextInput("name", "Enter Name").Render(ctx, templBuffer)
+		if err != nil {
+			return err
+		}
+		err = Button("", endpoint, target, label).Render(ctx, templBuffer)
+		if err != nil {
+			return err
+		}
+		if !templIsBuffer {
+			_, err = templBuffer.WriteTo(w)
+		}
+		return err
+	})
+}
+
+func Greet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("HX-Reswap", "innerHTML")
+	w.Write([]byte(fmt.Sprintf("Hello %s, It's show time!", r.FormValue("name"))))
+	return
 }
