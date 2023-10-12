@@ -1,0 +1,26 @@
+package components
+
+import "net/http"
+import "fmt"
+
+import types "wailstest/types"
+
+templ Pages(index types.IndexForm){
+    for _, i := range index.Pages {
+        <li hx-boost hx-get={ i.Path } hx-target="#target-form" hx-swap="innerHTML transition:true"><a
+              class="font-medium text-2xl">{ i.Label }</a></li>
+    }
+    @VersionComponent(index.Version)
+}
+
+templ GreetForm(endpoint string, target string, label string){
+<div class="result" id="result">Please enter your name below 👇</div>
+    @TextInput("name","Enter Name")
+    @Button("",endpoint,target,label)
+}
+
+func Greet(w http.ResponseWriter, r *http.Request){
+w.Header().Set("HX-Reswap", "innerHTML")
+w.Write([]byte(fmt.Sprintf("Hello %s, It's show time!", r.FormValue("name"))))
+return
+}

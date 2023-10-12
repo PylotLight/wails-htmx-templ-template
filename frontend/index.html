@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>wails-hmtx-gotemplates</title>
-  <script src="https://unpkg.com/htmx.org@1.9.5"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.4/dist/full.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="src/app.css">
+  <title>Wails HTMX Templ App</title>
+  <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+  <link rel="stylesheet" href="src/assets/css/app.css">
 </head>
 
 <body>
@@ -15,27 +14,18 @@
     <div class="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col items-center justify-center">
-        <div
-          class="mx-auto w-10/12 py-20 rounded-lg shadow-lg backdrop-blur-sm bg-white/10 backdrop-filter">
-
+        <div class="mx-auto w-10/12 py-20 rounded-lg shadow-lg backdrop-blur-sm bg-white/10 backdrop-filter">
           <form id="target-form" class="main-header space-y-6">
             <h1 class="text-2xl antialiased">Select an item from the sidebar to get started </h1>
           </form>
         </div>
         <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-
       </div>
       <div class="drawer-side">
         <label for="my-drawer-2" class="drawer-overlay"></label>
         <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-          <!-- Sidebar content here -->
-
           <img id="logo" class="logo max-w-[50%]" src="src/assets/images/logo-universal.png">
-          {{ range .Pages }}
-          <li hx-boost hx-get="{{ .Path }}" hx-target="#target-form" hx-swap="innerHTML transition:true"><a
-              class="font-medium text-2xl">{{ .Label }}</a></li>
-          {{end}}
-          {{ template "version" .Version }}
+          <div id="initial" hx-get="/initial" hx-trigger="load" hx-target="#initial" hx-swap="outerHTML"></div>
         </ul>
       </div>
     </div>
