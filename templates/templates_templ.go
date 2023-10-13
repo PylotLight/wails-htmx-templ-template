@@ -152,7 +152,14 @@ func VersionComponent(Version string, UpdateText string) templ.Component {
 	})
 }
 
-func Pages(data map[string]interface{}) templ.Component {
+func Pages(appInfo struct {
+	Pages []struct {
+		Path  string
+		Label string
+	}
+	Version    string
+	UpdateText string
+}) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
 		if !templIsBuffer {
@@ -165,12 +172,12 @@ func Pages(data map[string]interface{}) templ.Component {
 			var_8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		for _, i := range data["Pages"].([]map[string]interface{}) {
+		for _, i := range appInfo.Pages {
 			_, err = templBuffer.WriteString("<li hx-boost hx-get=\"")
 			if err != nil {
 				return err
 			}
-			_, err = templBuffer.WriteString(templ.EscapeString(i["Path"].(string)))
+			_, err = templBuffer.WriteString(templ.EscapeString(i.Path))
 			if err != nil {
 				return err
 			}
@@ -178,7 +185,7 @@ func Pages(data map[string]interface{}) templ.Component {
 			if err != nil {
 				return err
 			}
-			var var_9 string = i["Label"].(string)
+			var var_9 string = i.Label
 			_, err = templBuffer.WriteString(templ.EscapeString(var_9))
 			if err != nil {
 				return err
@@ -188,7 +195,10 @@ func Pages(data map[string]interface{}) templ.Component {
 				return err
 			}
 		}
-err = VersionComponent(data["Version"].(map[string]interface{})["Version"].(string), data["Version"].(map[string]interface{})["UpdateText"].(string)).Render(ctx, templBuffer)
+		err = VersionComponent(appInfo.Version, appInfo.UpdateText).Render(ctx, templBuffer)
+		if err != nil {
+			return err
+		}
 		if !templIsBuffer {
 			_, err = templBuffer.WriteTo(w)
 		}
