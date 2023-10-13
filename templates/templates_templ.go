@@ -188,6 +188,7 @@ func Pages(data map[string]interface{}) templ.Component {
 				return err
 			}
 		}
+err = VersionComponent(data["Version"].(map[string]interface{})["Version"].(string), data["Version"].(map[string]interface{})["UpdateText"].(string)).Render(ctx, templBuffer)
 		if !templIsBuffer {
 			_, err = templBuffer.WriteTo(w)
 		}
