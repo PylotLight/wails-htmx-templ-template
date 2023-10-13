@@ -152,14 +152,7 @@ func VersionComponent(Version string, UpdateText string) templ.Component {
 	})
 }
 
-func Pages(appInfo struct {
-	Pages []struct {
-		Path  string
-		Label string
-	}
-	Version    string
-	UpdateText string
-}) templ.Component {
+func Pages(appInfo IndexForm) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
 		if !templIsBuffer {
@@ -195,7 +188,7 @@ func Pages(appInfo struct {
 				return err
 			}
 		}
-		err = VersionComponent(appInfo.Version, appInfo.UpdateText).Render(ctx, templBuffer)
+		err = VersionComponent(appInfo.Version.Version, appInfo.Version.UpdateText).Render(ctx, templBuffer)
 		if err != nil {
 			return err
 		}
@@ -251,4 +244,17 @@ func Greet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("HX-Reswap", "innerHTML")
 	w.Write([]byte(fmt.Sprintf("Hello %s, It's show time!", r.FormValue("name"))))
 	return
+}
+
+type Page struct {
+	Label string
+	Path  string
+}
+type AppVersion struct {
+	Version    string
+	UpdateText string
+}
+type IndexForm struct {
+	Pages   []Page
+	Version AppVersion
 }

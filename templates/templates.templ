@@ -3,36 +3,39 @@ package components
 import "net/http"
 import "fmt"
 
-templ Button(classes string, hxUrl string, hxTarget string, label string){
-<button class="btn { classes }" type="submit" hx-post={ hxUrl } hx-target={ hxTarget } hx-trigger="click" hx-swap="outerHTML transition:false">{label}</button>
+templ Button(classes string, hxUrl string, hxTarget string, label string) {
+	<button class="btn { classes }" type="submit" hx-post={ hxUrl } hx-target={ hxTarget } hx-trigger="click" hx-swap="outerHTML transition:false">{ label }</button>
 }
 
-templ TextInput(name string, placeholder string){
-    <input type="text" name={ name } placeholder={ placeholder } class="input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8{{ .Classes }}" />
+templ TextInput(name string, placeholder string) {
+	<input type="text" name={ name } placeholder={ placeholder } class="input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8{{ .Classes }}"/>
 }
 
 templ VersionComponent(Version string, UpdateText string) {
-<div class="stats shadow mt-auto">
-    <div class="stat">
-        <div class="stat-title">Current App Version</div>
-        <div class="stat-value">{Version}</div>
-        <div class="stat-desc">{UpdateText}</div>
-    </div>
-</div>
+	<div class="stats shadow mt-auto">
+		<div class="stat">
+			<div class="stat-title">Current App Version</div>
+			<div class="stat-value">{ Version }</div>
+			<div class="stat-desc">{ UpdateText }</div>
+		</div>
+	</div>
 }
 
-templ Pages(appInfo struct{Pages []struct{Path string;Label string};Version string;UpdateText string}){
-    for _, i := range appInfo.Pages{
-        <li hx-boost hx-get={i.Path} hx-target="#target-form" hx-swap="innerHTML transition:true"><a
-              class="font-medium text-2xl">{i.Label}</a></li>
-    }
-   @VersionComponent(appInfo.Version,appInfo.UpdateText)
+templ Pages(appInfo IndexForm) {
+	for _, i := range appInfo.Pages {
+		<li hx-boost hx-get={ i.Path } hx-target="#target-form" hx-swap="innerHTML transition:true">
+			<a
+ 				class="font-medium text-2xl"
+			>{ i.Label }</a>
+		</li>
+	}
+	@VersionComponent(appInfo.Version.Version,appInfo.Version.UpdateText)
 }
 
-templ GreetForm(endpoint string, target string, label string){
-<div class="result" id="result">Please enter your name below 👇</div>
-    @TextInput("name","Enter Name")
-    @Button("",endpoint,target,label)
+templ GreetForm(endpoint string, target string, label string) {
+	<div class="result" id="result">Please enter your name below 👇</div>
+	@TextInput("name","Enter Name")
+	@Button("",endpoint,target,label)
 }
 
 func Greet(w http.ResponseWriter, r *http.Request){
@@ -40,3 +43,17 @@ w.Header().Set("HX-Reswap", "innerHTML")
 w.Write([]byte(fmt.Sprintf("Hello %s, It's show time!", r.FormValue("name"))))
 return
 }
+
+type Page struct {	
+	Label string	
+	Path  string	
+}	
+type AppVersion struct {	
+	Version    string	
+	UpdateText string	
+}	
+type IndexForm struct {	
+	Pages   []Page	
+	Version AppVersion	
+}
+
