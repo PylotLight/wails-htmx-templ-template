@@ -152,7 +152,7 @@ func VersionComponent(Version string, UpdateText string) templ.Component {
 	})
 }
 
-func Pages(appInfo IndexForm) templ.Component {
+func Pages(data map[string]interface{}) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
 		if !templIsBuffer {
@@ -165,12 +165,12 @@ func Pages(appInfo IndexForm) templ.Component {
 			var_8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		for _, i := range appInfo.Pages {
+		for _, i := range data["Pages"].([]map[string]interface{}) {
 			_, err = templBuffer.WriteString("<li hx-boost hx-get=\"")
 			if err != nil {
 				return err
 			}
-			_, err = templBuffer.WriteString(templ.EscapeString(i.Path))
+			_, err = templBuffer.WriteString(templ.EscapeString(i["Path"].(string)))
 			if err != nil {
 				return err
 			}
@@ -178,7 +178,7 @@ func Pages(appInfo IndexForm) templ.Component {
 			if err != nil {
 				return err
 			}
-			var var_9 string = i.Label
+			var var_9 string = i["Label"].(string)
 			_, err = templBuffer.WriteString(templ.EscapeString(var_9))
 			if err != nil {
 				return err
@@ -188,7 +188,7 @@ func Pages(appInfo IndexForm) templ.Component {
 				return err
 			}
 		}
-		err = VersionComponent(appInfo.Version.Version, appInfo.Version.UpdateText).Render(ctx, templBuffer)
+		err = VersionComponent(data["Version"].(map[string]interface{})["Version"].(string), data["Version"].(map[string]interface{})["UpdateText"].(string)).Render(ctx, templBuffer)
 		if err != nil {
 			return err
 		}
@@ -244,17 +244,4 @@ func Greet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("HX-Reswap", "innerHTML")
 	w.Write([]byte(fmt.Sprintf("Hello %s, It's show time!", r.FormValue("name"))))
 	return
-}
-
-type Page struct {
-	Label string
-	Path  string
-}
-type AppVersion struct {
-	Version    string
-	UpdateText string
-}
-type IndexForm struct {
-	Pages   []Page
-	Version AppVersion
 }
