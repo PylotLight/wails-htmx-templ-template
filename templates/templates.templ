@@ -26,7 +26,7 @@ templ Pages(data map[string]interface{}){
         <li hx-boost hx-get={i["Path"].(string)} hx-target="#target-form" hx-swap="innerHTML transition:true"><a
               class="font-medium text-2xl">{i["Label"].(string)}</a></li>
     }
-    
+    @VersionComponent(data["Version"].(map[string]interface{})["Version"].(string),data["Version"].(map[string]interface{})["UpdateText"].(string))
 }
 
 templ GreetForm(endpoint string, target string, label string){
