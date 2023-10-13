@@ -21,15 +21,12 @@ templ VersionComponent(Version string, UpdateText string) {
 	</div>
 }
 
-templ Pages(appInfo IndexForm) {
-	for _, i := range appInfo.Pages {
-		<li hx-boost hx-get={ i.Path } hx-target="#target-form" hx-swap="innerHTML transition:true">
-			<a
- 				class="font-medium text-2xl"
-			>{ i.Label }</a>
-		</li>
-	}
-	@VersionComponent(appInfo.Version.Version,appInfo.Version.UpdateText)
+templ Pages(data map[string]interface{}){
+    for _, i := range data["Pages"].([]map[string]interface{}){
+        <li hx-boost hx-get={i["Path"].(string)} hx-target="#target-form" hx-swap="innerHTML transition:true"><a
+              class="font-medium text-2xl">{i["Label"].(string)}</a></li>
+    }
+    @VersionComponent(data["Version"].(map[string]interface{})["Version"].(string),data["Version"].(map[string]interface{})["UpdateText"].(string))
 }
 
 templ GreetForm(endpoint string, target string, label string) {
@@ -43,17 +40,3 @@ w.Header().Set("HX-Reswap", "innerHTML")
 w.Write([]byte(fmt.Sprintf("Hello %s, It's show time!", r.FormValue("name"))))
 return
 }
-
-type Page struct {	
-	Label string	
-	Path  string	
-}	
-type AppVersion struct {	
-	Version    string	
-	UpdateText string	
-}	
-type IndexForm struct {	
-	Pages   []Page	
-	Version AppVersion	
-}
-
