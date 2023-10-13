@@ -13,6 +13,7 @@ This template uses a unique combination of pure htmx for interactivity plus Go t
 ## Iitial Setup Instructions
 - Change go.mod module
 - Change app.go components package import
+- For Linux build tag webkit2_40 is required
 
 ## Live Development
 
