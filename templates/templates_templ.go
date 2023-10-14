@@ -101,7 +101,7 @@ func TextInput(name string, placeholder string) templ.Component {
 	})
 }
 
-func VersionComponent(Version string, UpdateText string) templ.Component {
+func GreetForm(endpoint string, target string, label string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
 		if !templIsBuffer {
@@ -114,110 +114,12 @@ func VersionComponent(Version string, UpdateText string) templ.Component {
 			var_4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, err = templBuffer.WriteString("<div class=\"stats shadow mt-auto\"><div class=\"stat\"><div class=\"stat-title\">")
-		if err != nil {
-			return err
-		}
-		var_5 := `Current App Version`
-		_, err = templBuffer.WriteString(var_5)
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString("</div><div class=\"stat-value\">")
-		if err != nil {
-			return err
-		}
-		var var_6 string = Version
-		_, err = templBuffer.WriteString(templ.EscapeString(var_6))
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString("</div><div class=\"stat-desc\">")
-		if err != nil {
-			return err
-		}
-		var var_7 string = UpdateText
-		_, err = templBuffer.WriteString(templ.EscapeString(var_7))
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString("</div></div></div>")
-		if err != nil {
-			return err
-		}
-		if !templIsBuffer {
-			_, err = templBuffer.WriteTo(w)
-		}
-		return err
-	})
-}
-
-func Pages(data map[string]interface{}) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		templBuffer, templIsBuffer := w.(*bytes.Buffer)
-		if !templIsBuffer {
-			templBuffer = templ.GetBuffer()
-			defer templ.ReleaseBuffer(templBuffer)
-		}
-		ctx = templ.InitializeContext(ctx)
-		var_8 := templ.GetChildren(ctx)
-		if var_8 == nil {
-			var_8 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		for _, i := range data["Pages"].([]map[string]interface{}) {
-			_, err = templBuffer.WriteString("<li hx-boost hx-get=\"")
-			if err != nil {
-				return err
-			}
-			_, err = templBuffer.WriteString(templ.EscapeString(i["Path"].(string)))
-			if err != nil {
-				return err
-			}
-			_, err = templBuffer.WriteString("\" hx-target=\"#target-form\" hx-swap=\"innerHTML transition:true\"><a class=\"font-medium text-2xl\">")
-			if err != nil {
-				return err
-			}
-			var var_9 string = i["Label"].(string)
-			_, err = templBuffer.WriteString(templ.EscapeString(var_9))
-			if err != nil {
-				return err
-			}
-			_, err = templBuffer.WriteString("</a></li>")
-			if err != nil {
-				return err
-			}
-		}
-		err = VersionComponent(data["Version"].(map[string]interface{})["Version"].(string), data["Version"].(map[string]interface{})["UpdateText"].(string)).Render(ctx, templBuffer)
-		if err != nil {
-			return err
-		}
-		if !templIsBuffer {
-			_, err = templBuffer.WriteTo(w)
-		}
-		return err
-	})
-}
-
-func GreetForm(endpoint string, target string, label string) templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		templBuffer, templIsBuffer := w.(*bytes.Buffer)
-		if !templIsBuffer {
-			templBuffer = templ.GetBuffer()
-			defer templ.ReleaseBuffer(templBuffer)
-		}
-		ctx = templ.InitializeContext(ctx)
-		var_10 := templ.GetChildren(ctx)
-		if var_10 == nil {
-			var_10 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
 		_, err = templBuffer.WriteString("<div class=\"result\" id=\"result\">")
 		if err != nil {
 			return err
 		}
-		var_11 := `Please enter your name below 👇`
-		_, err = templBuffer.WriteString(var_11)
+		var_5 := `Please enter your name below 👇`
+		_, err = templBuffer.WriteString(var_5)
 		if err != nil {
 			return err
 		}
@@ -244,4 +146,108 @@ func Greet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("HX-Reswap", "innerHTML")
 	w.Write([]byte(fmt.Sprintf("Hello %s, It's show time!", r.FormValue("name"))))
 	return
+}
+
+func VersionComponent(Version string, UpdateText string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		templBuffer, templIsBuffer := w.(*bytes.Buffer)
+		if !templIsBuffer {
+			templBuffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templBuffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		var_6 := templ.GetChildren(ctx)
+		if var_6 == nil {
+			var_6 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, err = templBuffer.WriteString("<div class=\"stats shadow mt-auto\"><div class=\"stat\"><div class=\"stat-title\">")
+		if err != nil {
+			return err
+		}
+		var_7 := `Current App Version`
+		_, err = templBuffer.WriteString(var_7)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</div><div class=\"stat-value\">")
+		if err != nil {
+			return err
+		}
+		var var_8 string = Version
+		_, err = templBuffer.WriteString(templ.EscapeString(var_8))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</div><div class=\"stat-desc\">")
+		if err != nil {
+			return err
+		}
+		var var_9 string = UpdateText
+		_, err = templBuffer.WriteString(templ.EscapeString(var_9))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</div></div></div>")
+		if err != nil {
+			return err
+		}
+		if !templIsBuffer {
+			_, err = templBuffer.WriteTo(w)
+		}
+		return err
+	})
+}
+
+func Pages(Pages []struct {
+	Path  string
+	Label string
+}, appVersion struct {
+	Version string
+	Text    string
+}) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		templBuffer, templIsBuffer := w.(*bytes.Buffer)
+		if !templIsBuffer {
+			templBuffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templBuffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		var_10 := templ.GetChildren(ctx)
+		if var_10 == nil {
+			var_10 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		for _, i := range Pages {
+			_, err = templBuffer.WriteString("<li hx-boost hx-get=\"")
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString(templ.EscapeString(i.Path))
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString("\" hx-target=\"#target-form\" hx-swap=\"innerHTML transition:true\"><a class=\"font-medium text-2xl\">")
+			if err != nil {
+				return err
+			}
+			var var_11 string = i.Label
+			_, err = templBuffer.WriteString(templ.EscapeString(var_11))
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString("</a></li>")
+			if err != nil {
+				return err
+			}
+		}
+		err = VersionComponent(appVersion.Version, appVersion.Text).Render(ctx, templBuffer)
+		if err != nil {
+			return err
+		}
+		if !templIsBuffer {
+			_, err = templBuffer.WriteTo(w)
+		}
+		return err
+	})
 }

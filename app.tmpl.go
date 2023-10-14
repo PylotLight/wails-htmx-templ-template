@@ -46,15 +46,17 @@ func NewChiRouter() *chi.Mux {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
-	r.Get("/initial", templ.Handler(components.Pages(map[string]interface{}{
-		"Pages": []map[string]interface{}{
-			{"Label": "Greet Form", "Path": "/greet"},
-			// Add more data for pages if needed
-		},
-		"Version": map[string]interface{}{
-			"Version":    "0.0.1",
-			"UpdateText": "No update available",
-		},
+
+	r.Get("/initial", templ.Handler(components.Pages([]struct {
+		Path  string
+		Label string
+	}{
+		{"/greet", "Greet form"},
+	}, struct {
+		Version string
+		Text    string
+	}{
+		"0.0.1", "No update available",
 	})).ServeHTTP)
 	r.Get("/greet", templ.Handler(components.GreetForm("/greet", "#result", "Submit")).ServeHTTP)
 	r.Post("/greet", components.Greet)
