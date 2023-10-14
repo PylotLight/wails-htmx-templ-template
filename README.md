@@ -10,7 +10,7 @@ This template uses a unique combination of pure htmx for interactivity plus Go t
 - Scripts configured to use the Bun runtime to launch Vite. (Make sure you have bun installed first)
 - Also using https://templ.guide/ for components and templates use "templ generate" to update templ files. 
 
-## Iitial Setup Instructions
+## Initial Setup Instructions
 - Change go.mod module
 - Change app.go components package import
 - For Linux build tag webkit2_40 is required
