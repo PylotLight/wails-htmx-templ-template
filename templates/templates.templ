@@ -2,8 +2,15 @@ package components
 
 import "net/http"
 
-templ Button(classes string, hxUrl string, hxTarget string, label string) {
-	<button class="btn { classes }" type="submit" hx-post={ hxUrl } hx-target={ hxTarget } hx-trigger="click" hx-swap="outerHTML transition:false">{ label }</button>
+templ Button(classes string, hxUrl string, hxTarget string, hxSwap string,method string,label string) {
+	<button class="btn { classes }" type="submit" hx-target={ hxTarget } hx-trigger="click" hx-swap="outerhtml transition:false"
+	if method == "get" {
+			hx-get={ hxUrl }
+		}
+ 		if method == "post" {
+			hx-post={ hxUrl }
+		} 
+	>{ label }</button>
 }
 
 templ TextInput(name string, placeholder string, method string,endpoint string,hxTrigger string) {
@@ -49,3 +56,21 @@ templ Pages(Pages []struct{Path string;Label string}, appVersion struct{Version 
 	@VersionComponent(appVersion.Version,appVersion.Text)
     
 }
+
+templ TestPage(target string, hxswap string){
+	<h1>Test page for components</h1>
+	@Button("","/modal",target,hxswap,"post","Preview Modal")
+}
+
+templ ModalPreview(title string, data string ) {
+	<dialog id="modal" class="modal modal-bottom" open>
+		<div class="modal-box">
+			<h3 class="font-bold text-lg">{title}</h3>
+			<p class="py-4">{data}</p>
+		</div>
+		<form method="dialog" class="modal-backdrop">
+			<button>close</button>
+		</form>
+	</dialog>
+}
+
