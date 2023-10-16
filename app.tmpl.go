@@ -61,6 +61,6 @@ func NewChiRouter() *chi.Mux {
 	r.Get("/greet", templ.Handler(components.GreetForm("/greet")).ServeHTTP)
 	r.Post("/greet", components.Greet)
 	r.Get("/modal", templ.Handler(components.TestPage("#modal", "outerHTML")).ServeHTTP)
-	r.Post("/modal", templ.Handler(components.ModalPreview("Title for the modal", "data ahsoienahotinesthgoinesthgoinetahgoiesntg")).ServeHTTP)
+	r.Post("/modal", templ.Handler(components.ModalPreview("Title for the modal", "Sample Data")).ServeHTTP)
 	return r
 }
