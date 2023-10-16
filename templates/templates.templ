@@ -7,21 +7,16 @@ templ Button(classes string, hxUrl string, hxTarget string, label string) {
 	<button class="btn { classes }" type="submit" hx-post={ hxUrl } hx-target={ hxTarget } hx-trigger="click" hx-swap="outerHTML transition:false">{ label }</button>
 }
 
-templ TextInput(name string, placeholder string) {
-	<input type="text" name={ name } placeholder={ placeholder } class="input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8{{ .Classes }}"/>
-}
-
-
-templ GreetForm(endpoint string, target string, label string) {
-	<div class="result" id="result">Please enter your name below 👇</div>
-	@TextInput("name","Enter Name")
-	@Button("",endpoint,target,label)
-}
-
-func Greet(w http.ResponseWriter, r *http.Request){
-w.Header().Set("HX-Reswap", "innerHTML")
-w.Write([]byte(fmt.Sprintf("Hello %s, It's show time!", r.FormValue("name"))))
-return
+templ TextInput(name string, placeholder string, method string,endpoint string,hxTrigger string) {
+	<input type="text" name={ name } placeholder={ placeholder } hx-target="#result"
+	if method == "get" {
+		hx-get={endpoint}
+	}
+	if method == "post" {
+		hx-post={endpoint}
+	}
+	hx-trigger={hxTrigger} class={"input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8" }
+	/>
 }
 
 templ VersionComponent(Version string, UpdateText string) {
@@ -32,6 +27,19 @@ templ VersionComponent(Version string, UpdateText string) {
 			<div class="stat-desc">{ UpdateText }</div>
 		</div>
 	</div>
+}
+
+templ GreetForm(endpoint string) {
+	<div class="result" id="result">Please enter your name below 👇</div>
+	@TextInput("name","Enter Name","post",endpoint,"keyup changed delay:100ms")
+}
+
+func Greet(w http.ResponseWriter, r *http.Request){
+if r.FormValue("name") != "" {
+	w.Write([]byte("Hello "+r.FormValue("name")+", It's show time!"))
+	return
+}
+w.Write([]byte("Please enter your name below 👇", r.FormValue("name")))
 }
 
 templ Pages(Pages []struct{Path string;Label string}, appVersion struct{Version string;Text string}) {

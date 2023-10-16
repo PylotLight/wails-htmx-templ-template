@@ -56,9 +56,9 @@ func NewChiRouter() *chi.Mux {
 		Version string
 		Text    string
 	}{
-		"0.0.1", "No update available",
+		version, "No update available",
 	})).ServeHTTP)
-	r.Get("/greet", templ.Handler(components.GreetForm("/greet", "#result", "Submit")).ServeHTTP)
+	r.Get("/greet", templ.Handler(components.GreetForm("/greet")).ServeHTTP)
 	r.Post("/greet", components.Greet)
 	return r
 }
