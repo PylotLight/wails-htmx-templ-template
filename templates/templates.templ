@@ -1,7 +1,6 @@
 package components
 
 import "net/http"
-import "fmt"
 
 templ Button(classes string, hxUrl string, hxTarget string, label string) {
 	<button class="btn { classes }" type="submit" hx-post={ hxUrl } hx-target={ hxTarget } hx-trigger="click" hx-swap="outerHTML transition:false">{ label }</button>
@@ -39,7 +38,7 @@ if r.FormValue("name") != "" {
 	w.Write([]byte("Hello "+r.FormValue("name")+", It's show time!"))
 	return
 }
-w.Write([]byte("Please enter your name below 👇", r.FormValue("name")))
+w.Write([]byte("Please enter your name below 👇"))
 }
 
 templ Pages(Pages []struct{Path string;Label string}, appVersion struct{Version string;Text string}) {

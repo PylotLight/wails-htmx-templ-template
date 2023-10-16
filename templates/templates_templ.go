@@ -10,7 +10,6 @@ import "io"
 import "bytes"
 
 import "net/http"
-import "fmt"
 
 func Button(classes string, hxUrl string, hxTarget string, label string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
@@ -247,7 +246,7 @@ func Greet(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello " + r.FormValue("name") + ", It's show time!"))
 		return
 	}
-	w.Write([]byte("Please enter your name below 👇", r.FormValue("name")))
+	w.Write([]byte("Please enter your name below 👇"))
 }
 
 func Pages(Pages []struct {
