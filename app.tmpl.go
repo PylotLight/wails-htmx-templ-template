@@ -1,7 +1,7 @@
 package main
 
 import (
-	components "changeme/templates"
+	"changeme/components"
 	"context"
 
 	"github.com/a-h/templ"
