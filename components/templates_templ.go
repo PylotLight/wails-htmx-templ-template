@@ -11,7 +11,7 @@ import "bytes"
 
 import "net/http"
 
-func Button(classes string, hxUrl string, hxTarget string, label string) templ.Component {
+func Button(classes string, hxUrl string, hxTarget string, hxSwap string, method string, label string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		templBuffer, templIsBuffer := w.(*bytes.Buffer)
 		if !templIsBuffer {
@@ -24,15 +24,39 @@ func Button(classes string, hxUrl string, hxTarget string, label string) templ.C
 			var_1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, err = templBuffer.WriteString("<button class=\"btn { classes }\" type=\"submit\" hx-post=\"")
+		_, err = templBuffer.WriteString("<button class=\"btn { classes }\" type=\"submit\"")
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString(templ.EscapeString(hxUrl))
-		if err != nil {
-			return err
+		if method == "get" {
+			_, err = templBuffer.WriteString(" hx-get=\"")
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString(templ.EscapeString(hxUrl))
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString("\"")
+			if err != nil {
+				return err
+			}
 		}
-		_, err = templBuffer.WriteString("\" hx-target=\"")
+		if method == "post" {
+			_, err = templBuffer.WriteString(" hx-post=\"")
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString(templ.EscapeString(hxUrl))
+			if err != nil {
+				return err
+			}
+			_, err = templBuffer.WriteString("\"")
+			if err != nil {
+				return err
+			}
+		}
+		_, err = templBuffer.WriteString(" hx-target=\"")
 		if err != nil {
 			return err
 		}
@@ -40,7 +64,15 @@ func Button(classes string, hxUrl string, hxTarget string, label string) templ.C
 		if err != nil {
 			return err
 		}
-		_, err = templBuffer.WriteString("\" hx-trigger=\"click\" hx-swap=\"outerHTML transition:false\">")
+		_, err = templBuffer.WriteString("\" hx-trigger=\"click\" hx-swap=\"")
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString(templ.EscapeString(hxSwap + " transition:false"))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("\">")
 		if err != nil {
 			return err
 		}
@@ -292,6 +324,94 @@ func Pages(Pages []struct {
 			}
 		}
 		err = VersionComponent(appVersion.Version, appVersion.Text).Render(ctx, templBuffer)
+		if err != nil {
+			return err
+		}
+		if !templIsBuffer {
+			_, err = templBuffer.WriteTo(w)
+		}
+		return err
+	})
+}
+
+func TestPage(target string, hxswap string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		templBuffer, templIsBuffer := w.(*bytes.Buffer)
+		if !templIsBuffer {
+			templBuffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templBuffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		var_13 := templ.GetChildren(ctx)
+		if var_13 == nil {
+			var_13 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, err = templBuffer.WriteString("<h1>")
+		if err != nil {
+			return err
+		}
+		var_14 := `Test page for components`
+		_, err = templBuffer.WriteString(var_14)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</h1>")
+		if err != nil {
+			return err
+		}
+		err = Button("", "/modal", target, hxswap, "post", "Preview Modal").Render(ctx, templBuffer)
+		if err != nil {
+			return err
+		}
+		if !templIsBuffer {
+			_, err = templBuffer.WriteTo(w)
+		}
+		return err
+	})
+}
+
+func ModalPreview(title string, data string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		templBuffer, templIsBuffer := w.(*bytes.Buffer)
+		if !templIsBuffer {
+			templBuffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templBuffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		var_15 := templ.GetChildren(ctx)
+		if var_15 == nil {
+			var_15 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, err = templBuffer.WriteString("<dialog id=\"modal\" class=\"modal modal-bottom\" open><div class=\"modal-box\"><h3 class=\"font-bold text-lg\">")
+		if err != nil {
+			return err
+		}
+		var var_16 string = title
+		_, err = templBuffer.WriteString(templ.EscapeString(var_16))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</h3><p class=\"py-4\">")
+		if err != nil {
+			return err
+		}
+		var var_17 string = data
+		_, err = templBuffer.WriteString(templ.EscapeString(var_17))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</p></div><form method=\"dialog\" class=\"modal-backdrop\"><button>")
+		if err != nil {
+			return err
+		}
+		var_18 := `close`
+		_, err = templBuffer.WriteString(var_18)
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("</button></form></dialog>")
 		if err != nil {
 			return err
 		}

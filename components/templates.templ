@@ -14,14 +14,19 @@ templ Button(classes string, hxUrl string, hxTarget string, hxSwap string,method
 }
 
 templ TextInput(name string, placeholder string, method string,endpoint string,hxTrigger string) {
-	<input type="text" name={ name } placeholder={ placeholder } hx-target="#result"
-	if method == "get" {
-		hx-get={endpoint}
-	}
-	if method == "post" {
-		hx-post={endpoint}
-	}
-	hx-trigger={hxTrigger} class={"input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8" }
+	<input
+ 		type="text"
+ 		name={ name }
+ 		placeholder={ placeholder }
+ 		hx-target="#result"
+ 		if method == "get" {
+			hx-get={ endpoint }
+		}
+ 		if method == "post" {
+			hx-post={ endpoint }
+		}
+ 		hx-trigger={ hxTrigger }
+ 		class={ "input join-item input-bordered input-primary w-full max-w-xs px-4 py-3 my-8" }
 	/>
 }
 
@@ -49,12 +54,14 @@ w.Write([]byte("Please enter your name below 👇"))
 }
 
 templ Pages(Pages []struct{Path string;Label string}, appVersion struct{Version string;Text string}) {
-	  for _, i := range Pages{
-        <li hx-boost hx-get={i.Path} hx-target="#target-form" hx-swap="innerHTML transition:true"><a
-              class="font-medium text-2xl">{i.Label}</a></li>
-    }
+	for _, i := range Pages {
+		<li hx-boost hx-get={ i.Path } hx-target="#target-form" hx-swap="innerHTML transition:true">
+			<a
+ 				class="font-medium text-2xl"
+			>{ i.Label }</a>
+		</li>
+	}
 	@VersionComponent(appVersion.Version,appVersion.Text)
-    
 }
 
 templ TestPage(target string, hxswap string){
