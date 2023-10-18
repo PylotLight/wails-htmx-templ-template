@@ -2,16 +2,17 @@
   "name": "{{.ProjectName}}",
   "version": "0.0.0",
   "devDependencies": {
-    "autoprefixer": "^10.4.15",
-    "daisyui": "latest",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.3",
-    "vite": "^4.4.11"
+  "astro": "^3.3.1",
+  "autoprefixer": "^10.4.16",
+  "daisyui": "latest",
+  "postcss": "^8.4.31",
+  "tailwindcss": "^3.3.3"
   },
   "private": true,
   "scripts": {
-    "dev": "bun -b --hot vite",
-    "build": "bun -b vite build",
-    "preview": "bun -b vite preview"
+    "dev": "bunx --bun astro dev",
+    "build": "bunx --bun astro build",
+    "preview": "bun -b vite preview",
+    "astro": "bunx --bun astro"
   }
 ,"author":"{{.AuthorName}}"}

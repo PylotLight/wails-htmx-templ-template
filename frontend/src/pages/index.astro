@@ -1,12 +1,19 @@
+---
+// Welcome to Astro! Everything between these triple-dash code fences
+// is your "component frontmatter". It never runs in the browser.
+console.log('This runs in your terminal, not the browser!');
+---
+<!-- Below is your "component template." It's just HTML, but with
+     some magic sprinkled in to help you build great templates. -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Wails HTMX Templ App</title>
+  <title>wails-hmtx-templ</title>
   <script src="https://unpkg.com/htmx.org@1.9.6"></script>
-  <link rel="stylesheet" href="src/assets/css/app.css">
+  <link rel="stylesheet" href="/src/styles/app.css">
 </head>
 
 <body>
@@ -14,17 +21,22 @@
     <div class="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col items-center justify-center">
-        <div class="mx-auto w-10/12 py-20 rounded-lg shadow-lg backdrop-blur-sm bg-white/10 backdrop-filter">
+        <div
+          class="mx-auto w-10/12 py-20 rounded-lg shadow-lg backdrop-blur-sm bg-white/10 backdrop-filter">
+
           <form id="target-form" class="main-header space-y-6">
-            <h1 class="text-2xl antialiased">Select an item from the sidebar to get started </h1>
+            <h1 class="text-2xl antialiased">Select an item from the sidebar to get started</h1>
           </form>
         </div>
         <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+
       </div>
       <div class="drawer-side">
         <label for="my-drawer-2" class="drawer-overlay"></label>
         <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-          <img id="logo" class="logo max-w-[50%]" src="src/assets/images/logo-universal.png">
+          <!-- Sidebar content here -->
+
+          <img id="logo" class="logo max-w-[50%]" src="/logo-universal.png">
           <div id="initial" hx-get="/initial" hx-trigger="load" hx-target="#initial" hx-swap="outerHTML"></div>
         </ul>
       </div>
@@ -33,4 +45,5 @@
   </div>
   <div id="modal"></div>
 </body>
+
 </html>
