@@ -8,8 +8,10 @@ This template uses a unique combination of pure htmx for interactivity plus Go t
 - Added custom Chi middleware for handling HTMX calls in an easy to maintain routing configuration.
 - Built-in version display linked to version variable from main which can be updated on app build for CICD and/or during runtime.
 - Scripts configured to use the Bun runtime to launch Vite. (Make sure you have bun installed first)
-- To switch back to npm instead of bun, edit wails.json and package.json
 - Also using https://templ.guide/ for components and templates use "templ generate" to update templ files. 
+- Using Astro as front end dev server for HMR and frontend framework flexability.
+- To switch back to npm instead of bun, edit wails.json and package.json
+
 
 ## Initial Setup Instructions
 - Install Bun
