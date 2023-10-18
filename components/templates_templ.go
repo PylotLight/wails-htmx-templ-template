@@ -24,7 +24,15 @@ func Button(classes string, hxUrl string, hxTarget string, hxSwap string, method
 			var_1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, err = templBuffer.WriteString("<button class=\"btn { classes }\" type=\"submit\"")
+		_, err = templBuffer.WriteString("<button class=\"btn { classes }\" type=\"submit\" hx-target=\"")
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString(templ.EscapeString(hxTarget))
+		if err != nil {
+			return err
+		}
+		_, err = templBuffer.WriteString("\" hx-trigger=\"click\" hx-swap=\"outerhtml transition:false\"")
 		if err != nil {
 			return err
 		}
@@ -56,23 +64,7 @@ func Button(classes string, hxUrl string, hxTarget string, hxSwap string, method
 				return err
 			}
 		}
-		_, err = templBuffer.WriteString(" hx-target=\"")
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString(templ.EscapeString(hxTarget))
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString("\" hx-trigger=\"click\" hx-swap=\"")
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString(templ.EscapeString(hxSwap + " transition:false"))
-		if err != nil {
-			return err
-		}
-		_, err = templBuffer.WriteString("\">")
+		_, err = templBuffer.WriteString(">")
 		if err != nil {
 			return err
 		}

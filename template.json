@@ -1,5 +1,5 @@
 {
-  "name": "Wails + HTMX + Templ + Chi + Vite + Tailwind + DaisyUI template",
+  "name": "Wails + HTMX + Templ + Chi + Astro + Tailwind + DaisyUI template",
   "shortname": "wails-htmx-templ-chi-tailwind",
   "author": "Light",
   "description": "Wails template built from using the vanilla template then adding Chi for easier middleware routing and templ for powerful templating functionality, then manually installing HTMX + TailwindCSS and DaisyUi for styling configuration",
