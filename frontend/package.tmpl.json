@@ -10,8 +10,9 @@
   },
   "private": true,
   "scripts": {
-    "dev": "bun -b --hot vite",
-    "build": "bun -b vite build",
-    "preview": "bun -b vite preview"
-  }
-,"author":"{{.AuthorName}}"}
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "{{.AuthorName}}"
+}
