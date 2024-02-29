@@ -15,7 +15,7 @@ This template uses a unique combination of pure htmx for interactivity plus Go t
 - Install Bun
 - Change go.mod module
 - Change app.go components package import
-**- For Linux build tag webkit2_40 is required e.g -tags webkit2_40**
+- **For Linux build tag webkit2_40 is required e.g -tags webkit2_40**
 
 ## Live Development
 
