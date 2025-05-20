@@ -4,7 +4,7 @@ module changeme
 
 	require (
 	github.com/wailsapp/wails/v2 {{.WailsVersion}}
-	github.com/a-h/templ v0.2.364
+	github.com/a-h/templ v0.3.865
 	github.com/go-chi/chi/v5 v5.2.1
 	)
 
